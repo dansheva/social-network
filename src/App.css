@@ -1,38 +1,98 @@
-.App {
-  text-align: center;
+/*Обнуляем уже существующие стили*/
+*{
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+*,*:before,*:after{
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+    height: 100%;
+    width: 100%;
+    font-size: 100%;
+    line-height: 1;
+    font-size: 14px;
+    -ms-text-size-adjust: 100%;
+    -moz-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+/*--------------------*/
+
+body {
+    background-color: #f6f6f6;
+    /*background-color: #c7c7c7;*/
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.app-wrapper {
+    padding: 10px 28px 0 28px;
+    display: grid;
+    grid-template-rows: 60px 1fr;
+    grid-template-columns: 3fr 10fr;
+    grid-template-areas:
+    "header header"
+    "nav content";
+    gap: 10px;
+    max-width: 1280px;
+    margin: 0 auto;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.header {
+    grid-area: header;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+}
+.header img {
+    height: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.nav {
+    grid-area: nav;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    align-self: start;
 }
 
-.App-link {
-  color: #61dafb;
+.main-content {
+    grid-area: content;
+}
+.big-image {
+    border-radius: 8px;
+}
+.full-width-image {
+    width: 100%;
+}
+.big-image-container {
+    margin: 0 0 10px 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.avatar-description-container {
+    display: flex;
+    margin: 0 0 10px 0;
+}
+.avatar-container {
+    width: 80px;
+}
+.description {
+    padding: 8px;
 }
