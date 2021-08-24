@@ -2,9 +2,9 @@ import React from 'react';
 
 function Navbar() {
     return (
-        <nav className={"nav"}>
-            <div>
-                <a className="a-nav-container" href="#">
+        <nav className={"nav box-shadow"}>
+            <div className="a-nav-container">
+                <a href="#">
                     <div className="nav-container">
                         <div className="nav-icon-container">
                             <svg className="nav-icon" viewBox="-42 0 512 512.001" xmlns="http://www.w3.org/2000/svg">
@@ -20,8 +20,8 @@ function Navbar() {
                     </div>
                 </a>
             </div>
-            <div>
-                <a className="a-nav-container" href="#">
+            <div className="a-nav-container">
+                <a href="#">
                     <div className="nav-container">
                         <div className="nav-icon-container">
                             <svg className="nav-icon"
@@ -74,8 +74,8 @@ function Navbar() {
                     </div>
                 </a>
             </div>
-            <div>
-                <a className="a-nav-container" href="#">
+            <div className="a-nav-container">
+                <a href="#">
                     <div className="nav-container">
                         <div className="nav-icon-container">
                             <svg className={"nav-icon"} id="_x31__x2C_5" enable-background="new 0 0 24 24"
@@ -102,8 +102,8 @@ function Navbar() {
                     </div>
                 </a>
             </div>
-            <div>
-                <a className="a-nav-container" href="#">
+            <div className="a-nav-container">
+                <a href="#">
                     <div className="nav-container">
                         <div className="nav-icon-container">
                             <svg className={"nav-icon"} version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
@@ -139,8 +139,8 @@ function Navbar() {
                     </div>
                 </a>
             </div>
-            <div>
-                <a className="a-nav-container" href="#">
+            <div className="a-nav-container">
+                <a href="#">
                     <div className="nav-container">
                         <div className="nav-icon-container">
                             <svg className={"nav-icon"} id="Layer_1" enable-background="new 0 0 512 512"
