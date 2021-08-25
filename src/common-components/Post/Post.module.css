@@ -1,0 +1,28 @@
+.post {
+    background-color: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    margin: 12px 0 0 0;
+}
+
+.avatar_name {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.name__time_ago {
+    margin-left: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.name {
+    color: #3d4557;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.time_ago {
+    color: #838793;
+}

@@ -1,0 +1,21 @@
+.post_it {
+    display: flex;
+    height: 48px;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    background-color: #1878ED;
+    border-radius: 10px;
+}
+.icon_container {
+    height: 16px;
+}
+.icon {
+    height: 100%;
+    fill: #fff;
+}
+.title {
+    font-weight: 600;
+    font-size: 16px;
+    color: #fff;
+}

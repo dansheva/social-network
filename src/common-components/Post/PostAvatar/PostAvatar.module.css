@@ -1,0 +1,7 @@
+.avatar_container{
+    height: 48px;
+}
+.avatar {
+    height: 100%;
+    border-radius: 8px;
+}
