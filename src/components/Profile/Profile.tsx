@@ -1,8 +1,7 @@
 import React from 'react';
+import {MyPosts} from "./MyPosts/MyPosts";
 
 function Profile () {
-
-
     return(
         <div className={"main-content"}>
             <div className="big-image-container">
@@ -22,22 +21,7 @@ function Profile () {
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit.
                 </div>
             </div>
-            <div className="posts-container">
-                <div className="posts__title">
-                    My posts
-                </div>
-                <div className="posts__add-new-post">
-                    New post
-                </div>
-                <div className="posts__my-posts">
-                    <div className="post">
-                        Post 1
-                    </div>
-                    <div className="post">
-                        Post 2
-                    </div>
-                </div>
-            </div>
+            <MyPosts />
         </div>
     );
 }
