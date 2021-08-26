@@ -3,7 +3,7 @@ import {MyPosts} from "./MyPosts/MyPosts";
 
 function Profile () {
     return(
-        <div className={"main-content"}>
+        <div>
             <div className="big-image-container">
                 <img
                     className="big-image full-width-image box-shadow"

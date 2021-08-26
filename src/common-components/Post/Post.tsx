@@ -10,7 +10,7 @@ type PropsType = {
 
 export function Post(props: PropsType) {
     return(
-        <div className={s.post}>
+        <div className={`${s.post} box_shadow`}>
             <div className={s.avatar_name}>
                 <PostAvatar />
                 <div className={s.name__time_ago}>

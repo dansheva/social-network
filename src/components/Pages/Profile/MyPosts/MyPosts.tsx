@@ -1,7 +1,7 @@
 import React from "react";
-import {Post} from "../../../common-components/Post/Post";
+import {Post} from "../../../../common-components/Post/Post";
 import s from "./MyPosts.module.css"
-import {AddNewPost} from "../../../common-components/Post/AddNewPost/AddNewPost";
+import {AddNewPost} from "../../../../common-components/Post/AddNewPost/AddNewPost";
 
 export function MyPosts() {
     return(

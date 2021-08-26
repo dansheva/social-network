@@ -10,11 +10,11 @@ import s from "./Navbar.module.css"
 function Navbar() {
     return (
         <nav className={`${s.nav} box_shadow`}>
-            <Tab title={"Profile"} icon={<ProfileIcon/>}/>
-            <Tab title={"Messages"} icon={<MessagesIcon/>}/>
-            <Tab title={"News"} icon={<NewsIcon/>}/>
-            <Tab title={"Music"} icon={<MusicIcon/>}/>
-            <Tab title={"Settings"} icon={<SettingsIcon/>}/>
+            <Tab title={"Profile"} icon={<ProfileIcon/>} href={"/profile"}/>
+            <Tab title={"Messages"} icon={<MessagesIcon/>} href={"/dialogs"}/>
+            <Tab title={"News"} icon={<NewsIcon/>} href={"/news"}/>
+            <Tab title={"Music"} icon={<MusicIcon/>} href={"/music"}/>
+            <Tab title={"Settings"} icon={<SettingsIcon/>} href={"/settings"}/>
         </nav>
     );
 }

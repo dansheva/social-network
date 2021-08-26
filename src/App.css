@@ -62,7 +62,7 @@ body {
     margin: 0 auto;
 }
 
-.main-content {
+.content {
     grid-area: content;
 }
 .big-image {

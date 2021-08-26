@@ -4,12 +4,13 @@ import s from "../Navbar.module.css"
 type PropsType = {
     title: string
     icon: JSX.Element
+    href: string
 }
 
 export function Tab (props: PropsType) {
     return (
         <div className={s.tab}>
-            <a href="#">
+            <a href={`${props.href}`}>
                 <div className={s.wrapper}>
                     <div className={s.icon_wrapper}>
                         {props.icon}
