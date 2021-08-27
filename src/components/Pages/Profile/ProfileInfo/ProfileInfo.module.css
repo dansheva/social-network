@@ -1,0 +1,22 @@
+.big_image {
+    border-radius: 10px;
+    width: 100%;
+}
+
+.big_image_container {
+    margin: 0 0 10px 0;
+}
+
+.avatar_description_container {
+    display: flex;
+    margin: 0 0 10px 0;
+}
+.avatar_container {
+    width: 80px;
+}
+.avatar {
+    width: 100%;
+}
+.description {
+    padding: 8px;
+}

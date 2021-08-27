@@ -1,0 +1,38 @@
+.dialog_tab {
+    padding: 0 12px;
+}
+.content {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-top: 1px solid rgba(239, 239, 239, 0);
+    border-bottom: 1px solid #EFEFEF;
+}
+.left__container{
+    display: flex;
+}
+.name_last_message__container {
+    padding-left: 4px;
+    display: flex;
+    flex-direction: column;
+}
+.name {
+    font-weight: 600;
+    font-size: 16px;
+    margin-bottom: 4px;
+    color: #3d4557;
+}
+.last_message, .time {
+    color: #838793;
+}
+.active .dialog_tab {
+    background-color: #1878ED;
+}
+.active .dialog_tab .content .left__container .name_last_message__container .name,
+.active .dialog_tab .content .left__container .name_last_message__container .last_message,
+.active .dialog_tab .content .right__container .time {
+    color: #fff;
+}
+.active .dialog_tab .content {
+    border-bottom: 1px solid rgba(239, 239, 239, 0);
+}

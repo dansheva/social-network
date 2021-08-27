@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import s from "../Navbar.module.css"
+import {NavLink} from "react-router-dom"
 
 type PropsType = {
     title: string
@@ -10,7 +11,7 @@ type PropsType = {
 export function Tab (props: PropsType) {
     return (
         <div className={s.tab}>
-            <a href={`${props.href}`}>
+            <NavLink activeClassName={s.active} to={`${props.href}`}>
                 <div className={s.wrapper}>
                     <div className={s.icon_wrapper}>
                         {props.icon}
@@ -19,7 +20,7 @@ export function Tab (props: PropsType) {
                         <p>{props.title}</p>
                     </div>
                 </div>
-            </a>
+            </NavLink>
         </div>
     )
 }

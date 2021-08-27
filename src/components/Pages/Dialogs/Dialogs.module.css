@@ -1,0 +1,8 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 210px 1fr;
+    background-color: #fff;
+    padding: 0 0;
+    border-radius: 10px;
+    overflow: auto;
+}

@@ -19,12 +19,13 @@
     border-top: 1px solid #efefef;
     background-color: #FBFBFB;
 }
-.tab:hover a .wrapper .title_wrapper{
+.tab:hover a .wrapper .title_wrapper,.tab a.active .wrapper .title_wrapper{
     color: #1878ED;
 }
-.tab:hover a .wrapper .icon_wrapper .icon{
+.tab:hover a .wrapper .icon_wrapper .icon,.tab a.active .wrapper .icon_wrapper .icon{
     fill: #1878ED;
 }
+
 
 .tab:last-child a .wrapper {
     border-bottom: none;
