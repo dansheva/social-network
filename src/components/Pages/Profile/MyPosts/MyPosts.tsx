@@ -2,7 +2,7 @@ import React from "react";
 import {Post} from "../../../../common-components/Post/Post";
 import s from "./MyPosts.module.css"
 import {AddNewPost} from "../../../../common-components/Post/AddNewPost/AddNewPost";
-import {postsType} from "../../../../index";
+import {postsType} from "../../../../redux/state";
 
 type PropsType = {
     posts: postsType

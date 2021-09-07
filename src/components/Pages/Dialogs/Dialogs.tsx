@@ -1,7 +1,7 @@
 import React from "react";
 import s from "./Dialogs.module.css"
 import {DialogTab} from "./DialogTab/DialogTab";
-import {DialogsTabsDataType, MessagesDataType} from "../../../index";
+import {DialogsTabsDataType, MessagesDataType} from "../../../redux/state";
 
 type PropsType = {
     dialogsTabsData: DialogsTabsDataType
@@ -21,7 +21,6 @@ export function Dialogs(props: PropsType) {
             <div className={s.message}>{mes.message}</div>
         )
     })
-
     return (
         <div className={`${s.dialogs} box_shadow`}>
             <div className={s.dialogs_tabs}>
