@@ -5,6 +5,7 @@ import {postsType} from "../../../redux/state";
 
 type PropsType = {
     posts: postsType
+    addPost: (message: string) => void
 }
 
 
@@ -12,7 +13,7 @@ function Profile (props: PropsType) {
     return(
         <div>
             <ProfileInfo />
-            <MyPosts posts={props.posts}/>
+            <MyPosts addPost={props.addPost} posts={props.posts}/>
         </div>
     );
 }

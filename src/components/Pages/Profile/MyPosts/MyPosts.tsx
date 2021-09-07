@@ -6,6 +6,7 @@ import {postsType} from "../../../../redux/state";
 
 type PropsType = {
     posts: postsType
+    addPost: (message: string) => void
 }
 
 export function MyPosts(props: PropsType) {
@@ -21,7 +22,7 @@ export function MyPosts(props: PropsType) {
             <div className={s.title}>
                 My posts
             </div>
-            <AddNewPost/>
+            <AddNewPost addPost={props.addPost}/>
             <div className="my_posts">
                 {posts}
             </div>

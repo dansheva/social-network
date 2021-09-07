@@ -3,7 +3,11 @@ import {PostAvatar} from "../PostAvatar/PostAvatar";
 import {PostIt} from "./PostIt/PostIt";
 import s from "./AddNewPost.module.css"
 
-export function AddNewPost() {
+type AddNewPostType = {
+    addPost: (message: string) => void
+}
+
+export function AddNewPost(props: AddNewPostType) {
 
     let newPostElement = React.createRef<HTMLInputElement>();
 
@@ -11,7 +15,7 @@ export function AddNewPost() {
         <div className={`${s.new_post} box_shadow`}>
             <PostAvatar />
             <input ref={newPostElement} className={s.input} placeholder={"What's new, Danik?"} type="text"/>
-            <PostIt newPostElement={newPostElement} />
+            <PostIt addPost={props.addPost} newPostElement={newPostElement} />
         </div>
     )
 }

@@ -89,4 +89,14 @@ let state: stateType = {
     }
 }
 
+export const addPost = (postMessage: string) => {
+    const newPost: postObjectDataType = {
+        id: 5,
+        message: postMessage,
+        name: "Danik",
+        time: new Date().getTime().toString()
+    }
+    state.profile.posts.push(newPost);
+}
+
 export default state
