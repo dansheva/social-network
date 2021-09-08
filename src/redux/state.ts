@@ -1,3 +1,5 @@
+import {rerenderEntireTree} from "../render";
+
 type postObjectDataType = {
     id: number
     name: string
@@ -25,6 +27,7 @@ export type MessagesDataType = Array<MessagesDataObjectType>;
 
 type profileType = {
     posts: postsType
+    newPostText: string
 }
 type dialogsType = {
     dialogsData: DialogsTabsDataType
@@ -49,7 +52,8 @@ let state: stateType = {
                 time: "3 hours",
                 message: "lorem ajfenr arejnjfnea kfjrfb",
             },
-        ]
+        ],
+        newPostText: '',
     },
     dialogs: {
         dialogsData: [
@@ -89,14 +93,21 @@ let state: stateType = {
     }
 }
 
-export const addPost = (postMessage: string) => {
+export const addPost = () => {
     const newPost: postObjectDataType = {
         id: 5,
-        message: postMessage,
+        message: state.profile.newPostText,
         name: "Danik",
         time: new Date().getTime().toString()
     }
     state.profile.posts.push(newPost);
+    state.profile.newPostText = '';
+    rerenderEntireTree(state)
+
 }
 
+export const updateNewPostText = (value: string) => {
+    state.profile.newPostText = value;
+    rerenderEntireTree(state);
+}
 export default state

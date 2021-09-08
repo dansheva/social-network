@@ -1,21 +1,38 @@
-import React, {LegacyRef, RefObject} from "react";
+import React, {LegacyRef, RefObject, useState} from "react";
 import {PostAvatar} from "../PostAvatar/PostAvatar";
 import {PostIt} from "./PostIt/PostIt";
 import s from "./AddNewPost.module.css"
 
 type AddNewPostType = {
-    addPost: (message: string) => void
+    addPost: () => void
+    newPostText: string
+    updateNewPostText: (value: string) => void
 }
 
 export function AddNewPost(props: AddNewPostType) {
 
     let newPostElement = React.createRef<HTMLInputElement>();
 
-    return(
+    const onInputChange = () => {
+        if (newPostElement.current) {
+            const text = newPostElement.current.value;
+            props.updateNewPostText(text);
+        }
+    }
+
+    return (
         <div className={`${s.new_post} box_shadow`}>
-            <PostAvatar />
-            <input ref={newPostElement} className={s.input} placeholder={"What's new, Danik?"} type="text"/>
-            <PostIt addPost={props.addPost} newPostElement={newPostElement} />
+            <PostAvatar/>
+            <input onChange={onInputChange}
+                   ref={newPostElement}
+                   className={s.input}
+                   value={props.newPostText}
+                   placeholder={"What's new, Danik?"}
+                   type="text"/>
+            <PostIt updateNewPostText={props.updateNewPostText}
+                    addPost={props.addPost}
+                    newPostElement={newPostElement}
+                    newPostText={props.newPostText}/>
         </div>
     )
 }
