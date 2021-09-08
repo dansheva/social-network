@@ -1,4 +1,4 @@
-import {rerenderEntireTree} from "../render";
+let rerenderEntireTree = () => {}
 
 type postObjectDataType = {
     id: number
@@ -102,12 +102,16 @@ export const addPost = () => {
     }
     state.profile.posts.push(newPost);
     state.profile.newPostText = '';
-    rerenderEntireTree(state)
-
+    rerenderEntireTree()
 }
 
 export const updateNewPostText = (value: string) => {
     state.profile.newPostText = value;
-    rerenderEntireTree(state);
+    rerenderEntireTree();
 }
+
+export const subscribe = (observer: () => void) => {
+    rerenderEntireTree = observer;
+}
+
 export default state
