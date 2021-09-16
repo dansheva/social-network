@@ -8,13 +8,12 @@ import {BrowserRouter, Route} from "react-router-dom"
 import {News} from "./components/Pages/News/News";
 import {Music} from "./components/Pages/Music/Music";
 import {Settings} from "./components/Pages/Settings/Settings";
-import {stateType, updateNewPostText} from "./redux/state"
+import {stateType, StoreType} from "./redux/state"
 
 
 type PropsType = {
     state: stateType
-    addPost: () => void
-    updateNewPostText: (value: string) => void
+    store: StoreType
 }
 
 function App(props: PropsType) {
@@ -24,8 +23,12 @@ function App(props: PropsType) {
                 <Header/>
                 <Navbar/>
                 <div className={"content"}>
-                    <Route path={"/profile"} render={() => <Profile updateNewPostText={props.updateNewPostText} addPost={props.addPost} newPostText={props.state.profile.newPostText} posts={props.state.profile.posts}/>}/>
-                    <Route path={"/dialogs"} render={() => <Dialogs dialogsTabsData={props.state.dialogs.dialogsData} messagesData={props.state.dialogs.messagesData}/>}/>
+                    <Route path={"/profile"} render={() => <Profile updateNewPostText={props.store.updateNewPostText.bind(props.store)}
+                                                                    addPost={props.store.addPost.bind(props.store)}
+                                                                    newPostText={props.state.profile.newPostText}
+                                                                    posts={props.state.profile.posts}/>}/>
+                    <Route path={"/dialogs"} render={() => <Dialogs dialogsTabsData={props.state.dialogs.dialogsData}
+                                                                    messagesData={props.state.dialogs.messagesData}/>}/>
                     <Route path={"/news"} render={() => <News/>}/>
                     <Route path={"/music"} render={() => <Music/>}/>
                     <Route path={"/settings"} render={() => <Settings/>}/>
