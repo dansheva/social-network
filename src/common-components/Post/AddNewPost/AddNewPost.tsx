@@ -2,11 +2,11 @@ import React, {LegacyRef, RefObject, useState} from "react";
 import {PostAvatar} from "../PostAvatar/PostAvatar";
 import {PostIt} from "./PostIt/PostIt";
 import s from "./AddNewPost.module.css"
+import {ActionsTypes} from "../../../redux/state";
 
 type AddNewPostType = {
-    addPost: () => void
+    dispatch: (action: ActionsTypes) => void
     newPostText: string
-    updateNewPostText: (value: string) => void
 }
 
 export function AddNewPost(props: AddNewPostType) {
@@ -16,7 +16,7 @@ export function AddNewPost(props: AddNewPostType) {
     const onInputChange = () => {
         if (newPostElement.current) {
             const text = newPostElement.current.value;
-            props.updateNewPostText(text);
+            props.dispatch({type: "UPDATE-NEW-POST-TEXT", value: text});
         }
     }
 
@@ -29,8 +29,7 @@ export function AddNewPost(props: AddNewPostType) {
                    value={props.newPostText}
                    placeholder={"What's new, Danik?"}
                    type="text"/>
-            <PostIt updateNewPostText={props.updateNewPostText}
-                    addPost={props.addPost}
+            <PostIt dispatch={props.dispatch}
                     newPostElement={newPostElement}
                     newPostText={props.newPostText}/>
         </div>

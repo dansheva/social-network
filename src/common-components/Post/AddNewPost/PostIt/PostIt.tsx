@@ -1,10 +1,10 @@
 import React, {RefObject} from "react";
 import s from "./PostIt.module.css"
+import {ActionsTypes} from "../../../../redux/state";
 
 type PostItPropsType = {
     newPostElement: RefObject<HTMLInputElement>
-    addPost: (message: string) => void
-    updateNewPostText: (value: string) => void
+    dispatch: (action: ActionsTypes) => void
     newPostText: string
 }
 
@@ -12,7 +12,7 @@ export function PostIt(props: PostItPropsType) {
 
     const addPostOnClick = () => {
         if (props.newPostElement.current) {
-            props.addPost(props.newPostText);
+            props.dispatch({type: "ADD-POST", value: props.newPostText});
         }
     }
 

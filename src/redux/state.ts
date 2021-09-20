@@ -37,18 +37,26 @@ export type stateType = {
 }
 
 
+type AddPostActionType = {
+    type: 'ADD-POST'
+    value: string
+}
+type UpdateNewPostTextActionType = {
+    type: 'UPDATE-NEW-POST-TEXT'
+    value: string
+}
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
+
 export type StoreType = {
     _state: stateType
     getState: () => stateType
-    addPost: () => void
-    updateNewPostText: (value: string) => void
     subscribe: (observer: () => void) => void
     _callSubscriber: () => void
-    dispatch: (action: any) => void
+    dispatch: (action: ActionsTypes) => void
 }
 
 const store: StoreType = {
-    _state:  {
+    _state: {
         profile: {
             posts: [
                 {
@@ -103,42 +111,29 @@ const store: StoreType = {
             ],
         }
     },
-    _callSubscriber () {},
-    getState () {
+    _callSubscriber() {
+    },
+    getState() {
         return this._state
     },
-    subscribe (observer: () => void)  {
+    subscribe(observer: () => void) {
         this._callSubscriber = observer;
     },
 
-    addPost ()  {
-        const newPost: postObjectDataType = {
-            id: 5,
-            message: this._state.profile.newPostText,
-            name: "Danik",
-            time: new Date().getTime().toString()
-        }
-        this._state.profile.posts = [newPost, ...this._state.profile.posts]
-
-        this._state.profile.newPostText = '';
-        this._callSubscriber()
-    },
-    updateNewPostText  (value: string)  {
-        this._state.profile.newPostText = value;
-        this._callSubscriber();
-    },
-    dispatch (action) {
-        if (action === 'ADD-POST') {
+    dispatch(action) {
+        if (action.type === 'ADD-POST') {
             const newPost: postObjectDataType = {
                 id: 5,
                 message: this._state.profile.newPostText,
                 name: "Danik",
                 time: new Date().getTime().toString()
             }
-            this._state.profile.posts = [newPost, ...this._state.profile.posts]
-
+            this._state.profile.posts = [newPost, ...this._state.profile.posts];
             this._state.profile.newPostText = '';
-            this._callSubscriber()
+            this._callSubscriber();
+        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+            this._state.profile.newPostText = action.value;
+            this._callSubscriber();
         }
     }
 }

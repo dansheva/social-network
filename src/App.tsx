@@ -8,12 +8,13 @@ import {BrowserRouter, Route} from "react-router-dom"
 import {News} from "./components/Pages/News/News";
 import {Music} from "./components/Pages/Music/Music";
 import {Settings} from "./components/Pages/Settings/Settings";
-import {stateType, StoreType} from "./redux/state"
+import {ActionsTypes, stateType, StoreType} from "./redux/state"
 
 
 type PropsType = {
     state: stateType
     store: StoreType
+    dispatch: (action: ActionsTypes) => void
 }
 
 function App(props: PropsType) {
@@ -23,8 +24,7 @@ function App(props: PropsType) {
                 <Header/>
                 <Navbar/>
                 <div className={"content"}>
-                    <Route path={"/profile"} render={() => <Profile updateNewPostText={props.store.updateNewPostText.bind(props.store)}
-                                                                    addPost={props.store.addPost.bind(props.store)}
+                    <Route path={"/profile"} render={() => <Profile dispatch={props.dispatch}
                                                                     newPostText={props.state.profile.newPostText}
                                                                     posts={props.state.profile.posts}/>}/>
                     <Route path={"/dialogs"} render={() => <Dialogs dialogsTabsData={props.state.dialogs.dialogsData}
