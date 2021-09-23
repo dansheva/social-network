@@ -37,16 +37,6 @@ export type stateType = {
 }
 
 
-type AddPostActionType = {
-    type: 'ADD-POST'
-    value: string
-}
-type UpdateNewPostTextActionType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    value: string
-}
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
-
 export type StoreType = {
     _state: stateType
     getState: () => stateType
@@ -54,6 +44,20 @@ export type StoreType = {
     _callSubscriber: () => void
     dispatch: (action: ActionsTypes) => void
 }
+
+type AddPostActionType = {
+    type: typeof ADD_POST
+    value: string
+}
+type UpdateNewPostTextActionType = {
+    type: typeof UPDATE_NEW_POST_TEXT
+    value: string
+}
+
+export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
+
+const ADD_POST = "ADD-POST";
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 
 const store: StoreType = {
     _state: {
@@ -121,7 +125,7 @@ const store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === 'ADD-POST') {
+        if (action.type === ADD_POST) {
             const newPost: postObjectDataType = {
                 id: 5,
                 message: this._state.profile.newPostText,
@@ -131,11 +135,21 @@ const store: StoreType = {
             this._state.profile.posts = [newPost, ...this._state.profile.posts];
             this._state.profile.newPostText = '';
             this._callSubscriber();
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
+        } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profile.newPostText = action.value;
             this._callSubscriber();
         }
     }
 }
+
+export const newPostElementActionCreator: (value: string) => ActionsTypes = (value: string) => ({
+    type: UPDATE_NEW_POST_TEXT,
+    value: value
+})
+
+export const addPostActionCreator: (newPostText: string) => ActionsTypes = (newPostText: string) => ({
+    type: ADD_POST,
+    value: newPostText
+})
 
 export default store

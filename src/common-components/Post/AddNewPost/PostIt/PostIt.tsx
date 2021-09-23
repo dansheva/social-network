@@ -1,6 +1,7 @@
 import React, {RefObject} from "react";
 import s from "./PostIt.module.css"
-import {ActionsTypes} from "../../../../redux/state";
+import {ActionsTypes, addPostActionCreator} from "../../../../redux/state";
+
 
 type PostItPropsType = {
     newPostElement: RefObject<HTMLInputElement>
@@ -12,7 +13,8 @@ export function PostIt(props: PostItPropsType) {
 
     const addPostOnClick = () => {
         if (props.newPostElement.current) {
-            props.dispatch({type: "ADD-POST", value: props.newPostText});
+            const action: ActionsTypes = addPostActionCreator(props.newPostText);
+            props.dispatch(action);
         }
     }
 

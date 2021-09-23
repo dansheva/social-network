@@ -2,7 +2,7 @@ import React, {LegacyRef, RefObject, useState} from "react";
 import {PostAvatar} from "../PostAvatar/PostAvatar";
 import {PostIt} from "./PostIt/PostIt";
 import s from "./AddNewPost.module.css"
-import {ActionsTypes} from "../../../redux/state";
+import {ActionsTypes, newPostElementActionCreator} from "../../../redux/state";
 
 type AddNewPostType = {
     dispatch: (action: ActionsTypes) => void
@@ -16,7 +16,8 @@ export function AddNewPost(props: AddNewPostType) {
     const onInputChange = () => {
         if (newPostElement.current) {
             const text = newPostElement.current.value;
-            props.dispatch({type: "UPDATE-NEW-POST-TEXT", value: text});
+            const action = newPostElementActionCreator(text);
+            props.dispatch(action);
         }
     }
 
