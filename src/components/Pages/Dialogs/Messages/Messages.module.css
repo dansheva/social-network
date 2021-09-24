@@ -1,0 +1,16 @@
+.messages_wrapper {
+    min-height: 100%;
+    border-left: solid #EFEFEF 1px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.new_message_container{
+    border-top: solid #EFEFEF 1px;
+    border-bottom: solid rgba(239, 239, 239, 0) 1px;
+}
+
+.new_message_container__content {
+    height: 40px;
+}

@@ -6,14 +6,13 @@ import {ActionsTypes, addPostActionCreator} from "../../../../redux/state";
 type PostItPropsType = {
     newPostElement: RefObject<HTMLInputElement>
     dispatch: (action: ActionsTypes) => void
-    newPostText: string
 }
 
 export function PostIt(props: PostItPropsType) {
 
     const addPostOnClick = () => {
         if (props.newPostElement.current) {
-            const action: ActionsTypes = addPostActionCreator(props.newPostText);
+            const action: ActionsTypes = addPostActionCreator();
             props.dispatch(action);
         }
     }

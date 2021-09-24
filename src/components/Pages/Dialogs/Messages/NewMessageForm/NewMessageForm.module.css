@@ -1,0 +1,23 @@
+.new_message_form {
+    display: flex;
+    align-items: center;
+    justify-content: stretch;
+}
+
+.input_container {
+    flex: 1;
+    padding: 0 0 0 20px;
+}
+
+.input {
+    width: 100%;
+}
+
+.input::placeholder{
+    color: #838793;
+}
+
+.send_button {
+    height: 40px;
+    padding: 10px 20px;
+}

@@ -1,34 +1,22 @@
 import React from "react";
 import s from "./Dialogs.module.css"
-import {DialogTab} from "./DialogTab/DialogTab";
-import {DialogsTabsDataType, MessagesDataType} from "../../../redux/state";
+import {ActionsTypes, dialogsType} from "../../../redux/state";
+import {DialogsSidebar} from "./DialogsSidebar/DialogsSidebar";
+import {Messages} from "./Messages/Messages";
 
 type PropsType = {
-    dialogsTabsData: DialogsTabsDataType
-    messagesData: MessagesDataType
+    dialogs: dialogsType
+    dispatch: (action: ActionsTypes) => void
 }
 
 
 export function Dialogs(props: PropsType) {
-    let dialogsTabs: Array<JSX.Element> = props.dialogsTabsData.map(t => {
-        return (
-            <DialogTab name={t.name} lastMessage={t.lastMessage} time={t.time} id={t.id}/>
-        )
-    })
 
-    let messages: Array<JSX.Element> = props.messagesData.map(mes => {
-        return (
-            <div className={s.message}>{mes.message}</div>
-        )
-    })
     return (
         <div className={`${s.dialogs} box_shadow`}>
-            <div className={s.dialogs_tabs}>
-                {dialogsTabs}
-            </div>
-            <div className={s.messages}>
-                {messages}
-            </div>
+            <DialogsSidebar dialogsTabsData={props.dialogs.dialogsData} />
+            <Messages dispatch={props.dispatch}
+                      dialogs={props.dialogs} />
         </div>
     )
 }

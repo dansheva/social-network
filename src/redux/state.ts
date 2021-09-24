@@ -27,9 +27,10 @@ type profileType = {
     posts: postsType
     newPostText: string
 }
-type dialogsType = {
+export type dialogsType = {
     dialogsData: DialogsTabsDataType
     messagesData: MessagesDataType
+    newMessageText: string
 }
 export type stateType = {
     profile: profileType
@@ -47,17 +48,29 @@ export type StoreType = {
 
 type AddPostActionType = {
     type: typeof ADD_POST
-    value: string
 }
 type UpdateNewPostTextActionType = {
     type: typeof UPDATE_NEW_POST_TEXT
     value: string
 }
+type SendMessageActionType = {
+    type: typeof SEND_MESSAGE
+}
+type UpdateNewMessageTextType = {
+    type: typeof UPDATE_NEW_MESSAGE_TEXT
+    value: string
+}
 
-export type ActionsTypes = AddPostActionType | UpdateNewPostTextActionType
+export type ActionsTypes =
+    AddPostActionType
+    | UpdateNewPostTextActionType
+    | SendMessageActionType
+    | UpdateNewMessageTextType
 
-const ADD_POST = "ADD-POST";
+const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 
 const store: StoreType = {
     _state: {
@@ -82,7 +95,7 @@ const store: StoreType = {
             dialogsData: [
                 {
                     id: 1,
-                    name: "Valera",
+                    name: "Val",
                     time: "20:22",
                     lastMessage: "Last message",
                 },
@@ -113,6 +126,7 @@ const store: StoreType = {
                     message: "Hah",
                 },
             ],
+            newMessageText: '',
         }
     },
     _callSubscriber() {
@@ -138,6 +152,17 @@ const store: StoreType = {
         } else if (action.type === UPDATE_NEW_POST_TEXT) {
             this._state.profile.newPostText = action.value;
             this._callSubscriber();
+        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
+            this._state.dialogs.newMessageText = action.value;
+            this._callSubscriber();
+        } else if (action.type === SEND_MESSAGE) {
+            const newMessage: MessagesDataObjectType = {
+                id: 3,
+                message: this._state.dialogs.newMessageText
+            }
+            this._state.dialogs.messagesData.push(newMessage);
+            this._state.dialogs.newMessageText = '';
+            this._callSubscriber();
         }
     }
 }
@@ -147,9 +172,18 @@ export const newPostElementActionCreator: (value: string) => ActionsTypes = (val
     value: value
 })
 
-export const addPostActionCreator: (newPostText: string) => ActionsTypes = (newPostText: string) => ({
+export const addPostActionCreator: () => ActionsTypes = () => ({
     type: ADD_POST,
-    value: newPostText
 })
+
+export const updateNewMessageTextCreator: (value: string) => ActionsTypes = (value: string) => ({
+    type: UPDATE_NEW_MESSAGE_TEXT,
+    value: value
+})
+
+export const sendMessage: () => ActionsTypes = () => ({
+    type: SEND_MESSAGE
+})
+
 
 export default store

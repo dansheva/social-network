@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./DialogTab.module.css"
-import {PostAvatar} from "../../../../common-components/Post/PostAvatar/PostAvatar";
+import {PostAvatar} from "../../../../../common-components/Post/PostAvatar/PostAvatar";
 import {NavLink} from "react-router-dom";
 
 type PropsType = {

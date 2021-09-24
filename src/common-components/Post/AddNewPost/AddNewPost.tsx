@@ -1,4 +1,4 @@
-import React, {LegacyRef, RefObject, useState} from "react";
+import React from "react";
 import {PostAvatar} from "../PostAvatar/PostAvatar";
 import {PostIt} from "./PostIt/PostIt";
 import s from "./AddNewPost.module.css"
@@ -31,8 +31,7 @@ export function AddNewPost(props: AddNewPostType) {
                    placeholder={"What's new, Danik?"}
                    type="text"/>
             <PostIt dispatch={props.dispatch}
-                    newPostElement={newPostElement}
-                    newPostText={props.newPostText}/>
+                    newPostElement={newPostElement}/>
         </div>
     )
 }
