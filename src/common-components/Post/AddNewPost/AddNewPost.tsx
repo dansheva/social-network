@@ -2,7 +2,8 @@ import React from "react";
 import {PostAvatar} from "../PostAvatar/PostAvatar";
 import {PostIt} from "./PostIt/PostIt";
 import s from "./AddNewPost.module.css"
-import {ActionsTypes, newPostElementActionCreator} from "../../../redux/state";
+import {ActionsTypes} from "../../../redux/state";
+import {newPostElementActionCreator} from "../../../redux/profile-reducer";
 
 type AddNewPostType = {
     dispatch: (action: ActionsTypes) => void

@@ -1,4 +1,7 @@
-type postObjectDataType = {
+import {ADD_POST, profileReducer, UPDATE_NEW_POST_TEXT} from "./profile-reducer";
+import {dialogsReducer, SEND_MESSAGE, UPDATE_NEW_MESSAGE_TEXT} from "./dialogs-reducer";
+
+export type postObjectDataType = {
     id: number
     name: string
     time: string
@@ -7,7 +10,7 @@ type postObjectDataType = {
 export type postsType = Array<postObjectDataType>;
 
 
-type DialogsDataObjectType = {
+export type DialogsDataObjectType = {
     name: string
     lastMessage: string
     time: string
@@ -16,14 +19,14 @@ type DialogsDataObjectType = {
 export type DialogsTabsDataType = Array<DialogsDataObjectType>;
 
 
-type MessagesDataObjectType = {
+export type MessagesDataObjectType = {
     id: number
     message: string
 }
 export type MessagesDataType = Array<MessagesDataObjectType>;
 
 
-type profileType = {
+export type profileType = {
     posts: postsType
     newPostText: string
 }
@@ -67,10 +70,7 @@ export type ActionsTypes =
     | SendMessageActionType
     | UpdateNewMessageTextType
 
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
+
 
 const store: StoreType = {
     _state: {
@@ -139,51 +139,11 @@ const store: StoreType = {
     },
 
     dispatch(action) {
-        if (action.type === ADD_POST) {
-            const newPost: postObjectDataType = {
-                id: 5,
-                message: this._state.profile.newPostText,
-                name: "Danik",
-                time: new Date().getTime().toString()
-            }
-            this._state.profile.posts = [newPost, ...this._state.profile.posts];
-            this._state.profile.newPostText = '';
-            this._callSubscriber();
-        } else if (action.type === UPDATE_NEW_POST_TEXT) {
-            this._state.profile.newPostText = action.value;
-            this._callSubscriber();
-        } else if (action.type === UPDATE_NEW_MESSAGE_TEXT) {
-            this._state.dialogs.newMessageText = action.value;
-            this._callSubscriber();
-        } else if (action.type === SEND_MESSAGE) {
-            const newMessage: MessagesDataObjectType = {
-                id: 3,
-                message: this._state.dialogs.newMessageText
-            }
-            this._state.dialogs.messagesData.push(newMessage);
-            this._state.dialogs.newMessageText = '';
-            this._callSubscriber();
-        }
+        this._state.profile = profileReducer(this._state.profile, action);
+        this._state.dialogs = dialogsReducer(this._state.dialogs, action);
+
+        this._callSubscriber();
     }
 }
-
-export const newPostElementActionCreator: (value: string) => ActionsTypes = (value: string) => ({
-    type: UPDATE_NEW_POST_TEXT,
-    value: value
-})
-
-export const addPostActionCreator: () => ActionsTypes = () => ({
-    type: ADD_POST,
-})
-
-export const updateNewMessageTextCreator: (value: string) => ActionsTypes = (value: string) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    value: value
-})
-
-export const sendMessage: () => ActionsTypes = () => ({
-    type: SEND_MESSAGE
-})
-
 
 export default store

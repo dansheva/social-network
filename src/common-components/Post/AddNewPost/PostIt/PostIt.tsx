@@ -1,6 +1,7 @@
 import React, {RefObject} from "react";
 import s from "./PostIt.module.css"
-import {ActionsTypes, addPostActionCreator} from "../../../../redux/state";
+import {ActionsTypes} from "../../../../redux/state";
+import {addPostActionCreator} from "../../../../redux/profile-reducer";
 
 
 type PostItPropsType = {

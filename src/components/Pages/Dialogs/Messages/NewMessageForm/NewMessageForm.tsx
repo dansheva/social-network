@@ -1,7 +1,8 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from "./NewMessageForm.module.css";
 import {SendIcon} from "./Icons/SendIcon";
-import {ActionsTypes, sendMessage, updateNewMessageTextCreator} from "../../../../../redux/state";
+import {ActionsTypes} from "../../../../../redux/state";
+import {sendMessage, updateNewMessageTextCreator} from "../../../../../redux/dialogs-reducer";
 
 type PropsType = {
     newMessageText: string
@@ -10,14 +11,11 @@ type PropsType = {
 
 export const NewMessageForm = (props: PropsType) => {
 
-    let newMessageElement = React.createRef<HTMLInputElement>();
 
-    const onInputChange = () => {
-        if (newMessageElement.current) {
-            const text = newMessageElement.current.value;
-            const action = updateNewMessageTextCreator(text);
-            props.dispatch(action);
-        }
+    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const text = e.target.value;
+        const action = updateNewMessageTextCreator(text);
+        props.dispatch(action);
     }
 
     const sendMessageHandler = () => {
@@ -29,7 +27,6 @@ export const NewMessageForm = (props: PropsType) => {
         <div className={s.new_message_form}>
             <div className={s.input_container}>
                 <input onChange={onInputChange}
-                       ref={newMessageElement}
                        className={s.input}
                        placeholder={'Write a message...'}
                        value={props.newMessageText}
