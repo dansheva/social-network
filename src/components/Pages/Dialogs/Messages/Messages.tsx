@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Messages.module.css";
-import {ActionsTypes, dialogsType, MessagesDataType} from "../../../../redux/state";
+import {ActionsTypes, dialogsType, MessagesDataType} from "../../../../redux/store";
 import {NewMessageForm} from "./NewMessageForm/NewMessageForm";
 
 type PropsType = {

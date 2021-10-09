@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from "react";
 import s from "./NewMessageForm.module.css";
 import {SendIcon} from "./Icons/SendIcon";
-import {ActionsTypes} from "../../../../../redux/state";
-import {sendMessage, updateNewMessageTextCreator} from "../../../../../redux/dialogs-reducer";
+import {ActionsTypes} from "../../../../../redux/store";
+import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../../../../../redux/dialogs-reducer";
 
 type PropsType = {
     newMessageText: string
@@ -14,12 +14,12 @@ export const NewMessageForm = (props: PropsType) => {
 
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const text = e.target.value;
-        const action = updateNewMessageTextCreator(text);
+        const action = updateNewMessageTextActionCreator(text);
         props.dispatch(action);
     }
 
     const sendMessageHandler = () => {
-        const action = sendMessage();
+        const action = sendMessageActionCreator();
         props.dispatch(action);
     }
 

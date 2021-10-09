@@ -2,12 +2,11 @@ import React from "react";
 import {PostAvatar} from "../PostAvatar/PostAvatar";
 import {PostIt} from "./PostIt/PostIt";
 import s from "./AddNewPost.module.css"
-import {ActionsTypes} from "../../../redux/state";
-import {newPostElementActionCreator} from "../../../redux/profile-reducer";
 
 type AddNewPostType = {
-    dispatch: (action: ActionsTypes) => void
     newPostText: string
+    onInputChange: (text: string) => void
+    addPost: () => void
 }
 
 export function AddNewPost(props: AddNewPostType) {
@@ -16,9 +15,7 @@ export function AddNewPost(props: AddNewPostType) {
 
     const onInputChange = () => {
         if (newPostElement.current) {
-            const text = newPostElement.current.value;
-            const action = newPostElementActionCreator(text);
-            props.dispatch(action);
+            props.onInputChange(newPostElement.current.value)
         }
     }
 
@@ -31,7 +28,7 @@ export function AddNewPost(props: AddNewPostType) {
                    value={props.newPostText}
                    placeholder={"What's new, Danik?"}
                    type="text"/>
-            <PostIt dispatch={props.dispatch}
+            <PostIt addPost={props.addPost}
                     newPostElement={newPostElement}/>
         </div>
     )

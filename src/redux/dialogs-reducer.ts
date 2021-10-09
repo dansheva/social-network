@@ -1,11 +1,46 @@
-import {ActionsTypes, dialogsType, MessagesDataObjectType} from "./state";
+import {ActionsTypes, dialogsType, MessagesDataObjectType} from "./store";
 
-type dialogsReducerType = (state: dialogsType, action: ActionsTypes) => dialogsType
+type dialogsReducerType = (state: dialogsType, action: tsarType) => dialogsType
 
-export const SEND_MESSAGE = 'SEND-MESSAGE';
-export const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
+const initialState = {
+    dialogsData: [
+        {
+            id: 1,
+            name: "Val",
+            time: "20:22",
+            lastMessage: "Last message",
+        },
+        {
+            id: 2,
+            name: "Danik",
+            time: "19:40",
+            lastMessage: "Last message",
+        },
+        {
+            id: 3,
+            name: "Sasha",
+            time: "8:04",
+            lastMessage: "Last message",
+        },
+    ],
+    messagesData: [
+        {
+            id: 1,
+            message: "Hi",
+        },
+        {
+            id: 2,
+            message: "My",
+        },
+        {
+            id: 3,
+            message: "Hah",
+        },
+    ],
+    newMessageText: '',
+}
 
-export const dialogsReducer: dialogsReducerType = (state, action) => {
+export const dialogsReducer: dialogsReducerType = (state = initialState, action) => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_TEXT:
             state.newMessageText = action.value;
@@ -22,10 +57,21 @@ export const dialogsReducer: dialogsReducerType = (state, action) => {
             return state
     }
 }
-export const updateNewMessageTextCreator: (value: string) => ActionsTypes = (value: string) => ({
-    type: UPDATE_NEW_MESSAGE_TEXT,
-    value: value
-})
-export const sendMessage: () => ActionsTypes = () => ({
-    type: SEND_MESSAGE
-})
+
+export const SEND_MESSAGE = 'SEND-MESSAGE';
+export const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
+
+type tsarType = updateNewMessageTextActionType | sendMessageActionCreatorType
+
+type updateNewMessageTextActionType = ReturnType<typeof updateNewMessageTextActionCreator>
+export const updateNewMessageTextActionCreator: (value: string) => ActionsTypes = (value: string) => ({
+        type: UPDATE_NEW_MESSAGE_TEXT,
+        value: value
+    } as const
+)
+
+type sendMessageActionCreatorType = ReturnType<typeof sendMessageActionCreator>
+export const sendMessageActionCreator: () => ActionsTypes = () => ({
+        type: SEND_MESSAGE
+    } as const
+)

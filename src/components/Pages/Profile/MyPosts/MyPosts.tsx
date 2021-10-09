@@ -2,12 +2,13 @@ import React from "react";
 import {Post} from "../../../../common-components/Post/Post";
 import s from "./MyPosts.module.css"
 import {AddNewPost} from "../../../../common-components/Post/AddNewPost/AddNewPost";
-import {ActionsTypes, postsType} from "../../../../redux/state";
+import {postsType} from "../../../../redux/store";
 
 type PropsType = {
     posts: postsType
     newPostText: string
-    dispatch: (action: ActionsTypes) => void
+    onInputChange: (text: string) => void
+    addPost: () => void
 }
 
 export function MyPosts(props: PropsType) {
@@ -23,7 +24,7 @@ export function MyPosts(props: PropsType) {
             <div className={s.title}>
                 My posts
             </div>
-            <AddNewPost dispatch={props.dispatch} newPostText={props.newPostText}/>
+            <AddNewPost addPost={props.addPost} onInputChange={props.onInputChange} newPostText={props.newPostText}/>
             <div className="my_posts">
                 {posts}
             </div>

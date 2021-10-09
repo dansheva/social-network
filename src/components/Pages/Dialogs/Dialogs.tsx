@@ -1,6 +1,6 @@
 import React from "react";
 import s from "./Dialogs.module.css"
-import {ActionsTypes, dialogsType} from "../../../redux/state";
+import {ActionsTypes, dialogsType} from "../../../redux/store";
 import {DialogsSidebar} from "./DialogsSidebar/DialogsSidebar";
 import {Messages} from "./Messages/Messages";
 
