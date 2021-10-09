@@ -1,6 +1,23 @@
-import {ActionsTypes, dialogsType, MessagesDataObjectType} from "./store";
-
 type dialogsReducerType = (state: dialogsType, action: tsarType) => dialogsType
+
+
+export type DialogsDataObjectType = {
+    name: string
+    lastMessage: string
+    time: string
+    id: number
+}
+export type DialogsTabsDataType = Array<DialogsDataObjectType>;
+export type MessagesDataObjectType = {
+    id: number
+    message: string
+}
+export type MessagesDataType = Array<MessagesDataObjectType>;
+export type dialogsType = {
+    dialogsData: DialogsTabsDataType
+    messagesData: MessagesDataType
+    newMessageText: string
+}
 
 const initialState = {
     dialogsData: [
@@ -64,14 +81,14 @@ export const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 type tsarType = updateNewMessageTextActionType | sendMessageActionCreatorType
 
 type updateNewMessageTextActionType = ReturnType<typeof updateNewMessageTextActionCreator>
-export const updateNewMessageTextActionCreator: (value: string) => ActionsTypes = (value: string) => ({
+export const updateNewMessageTextActionCreator = (value: string) => ({
         type: UPDATE_NEW_MESSAGE_TEXT,
         value: value
     } as const
 )
 
 type sendMessageActionCreatorType = ReturnType<typeof sendMessageActionCreator>
-export const sendMessageActionCreator: () => ActionsTypes = () => ({
+export const sendMessageActionCreator = () => ({
         type: SEND_MESSAGE
     } as const
 )

@@ -1,7 +1,7 @@
 import React from "react";
+import { DialogsTabsDataType } from "../../../../redux/dialogs-reducer";
 import s from "./DialogsSidebar.module.css";
 import {DialogTab} from "./DialogTab/DialogTab";
-import {DialogsTabsDataType} from "../../../../redux/store";
 
 type PropsType ={
     dialogsTabsData: DialogsTabsDataType

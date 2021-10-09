@@ -6,7 +6,8 @@ import {sendMessageActionCreator, updateNewMessageTextActionCreator} from "../..
 
 type PropsType = {
     newMessageText: string
-    dispatch: (action: ActionsTypes) => void
+    onInputChange: (text: string) => void
+    sendMessage: () => void
 }
 
 export const NewMessageForm = (props: PropsType) => {
@@ -14,13 +15,16 @@ export const NewMessageForm = (props: PropsType) => {
 
     const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
         const text = e.target.value;
-        const action = updateNewMessageTextActionCreator(text);
-        props.dispatch(action);
+        props.onInputChange(text)
+        // const text = e.target.value;
+        // const action = updateNewMessageTextActionCreator(text);
+        // props.dispatch(action);
     }
 
     const sendMessageHandler = () => {
-        const action = sendMessageActionCreator();
-        props.dispatch(action);
+        props.sendMessage()
+        // const action = sendMessageActionCreator();
+        // props.dispatch(action);
     }
 
     return (

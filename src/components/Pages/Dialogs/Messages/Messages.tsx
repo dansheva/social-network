@@ -1,16 +1,19 @@
 import React from "react";
 import s from "./Messages.module.css";
-import {ActionsTypes, dialogsType, MessagesDataType} from "../../../../redux/store";
+import {ActionsTypes} from "../../../../redux/store";
 import {NewMessageForm} from "./NewMessageForm/NewMessageForm";
+import {dialogsType, MessagesDataType} from "../../../../redux/dialogs-reducer";
 
 type PropsType = {
-    dialogs: dialogsType
-    dispatch: (action: ActionsTypes) => void
+    messages: MessagesDataType
+    newMessageText: string
+    onInputChange: (text: string) => void
+    sendMessage: () => void
 }
 
 export const Messages = (props: PropsType) => {
 
-    const messages: Array<JSX.Element> = props.dialogs.messagesData.map(mes => {
+    const messages: Array<JSX.Element> = props.messages.map(mes => {
         return (
             <div className={s.message}>{mes.message}</div>
         )
@@ -22,7 +25,9 @@ export const Messages = (props: PropsType) => {
                 {messages}
             </div>
             <div className={s.new_message_container}>
-                <NewMessageForm newMessageText={props.dialogs.newMessageText} dispatch={props.dispatch} />
+                <NewMessageForm newMessageText={props.newMessageText}
+                                onInputChange={props.onInputChange}
+                                sendMessage={props.sendMessage}/>
             </div>
         </div>
     )

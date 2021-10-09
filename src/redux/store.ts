@@ -2,44 +2,44 @@ import {ADD_POST, UPDATE_NEW_POST_TEXT} from "./profile-reducer";
 
 import {SEND_MESSAGE, UPDATE_NEW_MESSAGE_TEXT} from "./dialogs-reducer";
 
-export type postObjectDataType = {
-    id: number
-    name: string
-    time: string
-    message: string
-}
-export type postsType = Array<postObjectDataType>;
+// export type postObjectDataType = {
+//     id: number
+//     name: string
+//     time: string
+//     message: string
+// }
+// export type postsType = Array<postObjectDataType>;
 
 
-export type DialogsDataObjectType = {
-    name: string
-    lastMessage: string
-    time: string
-    id: number
-}
-export type DialogsTabsDataType = Array<DialogsDataObjectType>;
+// export type DialogsDataObjectType = {
+//     name: string
+//     lastMessage: string
+//     time: string
+//     id: number
+// }
+// export type DialogsTabsDataType = Array<DialogsDataObjectType>;
 
 
-export type MessagesDataObjectType = {
-    id: number
-    message: string
-}
-export type MessagesDataType = Array<MessagesDataObjectType>;
+// export type MessagesDataObjectType = {
+//     id: number
+//     message: string
+// }
+// export type MessagesDataType = Array<MessagesDataObjectType>;
 
 
-export type profileType = {
-    posts: postsType
-    newPostText: string
-}
-export type dialogsType = {
-    dialogsData: DialogsTabsDataType
-    messagesData: MessagesDataType
-    newMessageText: string
-}
-export type stateType = {
-    profile: profileType
-    dialogs: dialogsType
-}
+// export type profileType = {
+//     posts: postsType
+//     newPostText: string
+// }
+// export type dialogsType = {
+//     dialogsData: DialogsTabsDataType
+//     messagesData: MessagesDataType
+//     newMessageText: string
+// }
+// export type stateType = {
+//     profile: profileType
+//     dialogs: dialogsType
+// }
 
 
 // export type StoreType = {

@@ -1,11 +1,18 @@
-import {postObjectDataType, profileType} from "./store";
-
 type profileReducerType = (state: profileType, action: tsarType) => profileType
 
-export const ADD_POST = 'ADD-POST';
-export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+export type postObjectDataType = {
+    id: number
+    name: string
+    time: string
+    message: string
+}
+export type postsType = Array<postObjectDataType>;
+export type profileType = {
+    posts: postsType
+    newPostText: string
+}
 
-const initialState = {
+const initialState: profileType = {
     posts: [
         {
             id: 1,
@@ -44,6 +51,10 @@ export const profileReducer: profileReducerType = (state = initialState, action)
 }
 
 type tsarType = newPostElementActionType | addPostActionType
+
+export const ADD_POST = 'ADD-POST';
+export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
+
 
 type newPostElementActionType = ReturnType<typeof newPostElementActionCreator>
 export const newPostElementActionCreator = (value: string) => ({

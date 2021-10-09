@@ -8,12 +8,14 @@ import {BrowserRouter, Route} from "react-router-dom"
 import {News} from "./components/Pages/News/News";
 import {Music} from "./components/Pages/Music/Music";
 import {Settings} from "./components/Pages/Settings/Settings";
-import {ActionsTypes, stateType} from "./redux/store"
+import {EmptyObject, Store} from "redux";
+import {profileType} from "./redux/profile-reducer";
+import {dialogsType} from "./redux/dialogs-reducer";
+import {DialogsContainer} from "./components/Pages/Dialogs/DialogsContainer";
 
 
 type PropsType = {
-    state: stateType
-    dispatch: (action: ActionsTypes) => void
+    store:  Store<EmptyObject & {profile: profileType, dialogs: dialogsType}>
 }
 
 function App(props: PropsType) {
@@ -23,11 +25,8 @@ function App(props: PropsType) {
                 <Header/>
                 <Navbar/>
                 <div className={"content"}>
-                    <Route path={"/profile"} render={() => <Profile dispatch={props.dispatch}
-                                                                    newPostText={props.state.profile.newPostText}
-                                                                    posts={props.state.profile.posts}/>}/>
-                    <Route path={"/dialogs"} render={() => <Dialogs dispatch={props.dispatch}
-                                                                    dialogs={props.state.dialogs}/>}/>
+                    <Route path={"/profile"} render={() => <Profile store={props.store}/>} />
+                    <Route path={"/dialogs"} render={() => <DialogsContainer store={props.store}/>}/>
                     <Route path={"/news"} render={() => <News/>}/>
                     <Route path={"/music"} render={() => <Music/>}/>
                     <Route path={"/settings"} render={() => <Settings/>}/>
