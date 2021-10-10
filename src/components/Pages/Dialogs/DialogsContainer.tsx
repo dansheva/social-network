@@ -1,30 +1,46 @@
 import React from "react";
-import { dialogsType, sendMessageActionCreator, updateNewMessageTextActionCreator } from "../../../redux/dialogs-reducer";
-import {EmptyObject, Store} from "redux";
-import {profileType} from "../../../redux/profile-reducer";
+import {
+    DialogsTabsDataType, MessagesDataType,
+    sendMessageActionCreator,
+    updateNewMessageTextActionCreator
+} from "../../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
+import {connect} from "react-redux";
+import {AppStateType} from "../../../redux/redux-store";
+import {Dispatch} from "redux";
 
-type PropsType = {
-    store: Store<EmptyObject & {profile: profileType, dialogs: dialogsType}>
+type MapToPropsStateType = {
+    dialogsData: DialogsTabsDataType
+    messages: MessagesDataType
+    newMessageText: string
 }
 
-export function DialogsContainer(props: PropsType) {
-    const state = props.store.getState()
-    const dispatch = props.store.dispatch
-    const dialogsData = state.dialogs.dialogsData
-    const newMessageText = state.dialogs.newMessageText
-    const messages = state.dialogs.messagesData
-    const sendMessage = () => {
-        dispatch(sendMessageActionCreator())
+const mapToPropsState = (state: AppStateType): MapToPropsStateType => {
+    return{
+        dialogsData: state.dialogs.dialogsData,
+        messages: state.dialogs.messagesData,
+        newMessageText: state.dialogs.newMessageText
     }
-    const onInputChange = (text: string) => {
-        dispatch(updateNewMessageTextActionCreator(text));
-    }
-
-
-    return (
-        <Dialogs dialogsData={dialogsData}
-                 newMessageText={newMessageText}
-                 messages={messages} sendMessage={sendMessage} onInputChange={onInputChange}/>
-    )
 }
+
+type MapToDispatchType = {
+    onInputChange: (text: string) => void
+    sendMessage: () => void
+}
+
+const mapToDispatchType = (dispatch: Dispatch): MapToDispatchType => {
+    return {
+        onInputChange: (text: string) => {
+            dispatch(updateNewMessageTextActionCreator(text));
+        },
+        sendMessage: () => {
+            dispatch(sendMessageActionCreator())
+        }
+    }
+}
+
+export type DialogsPropsType = MapToPropsStateType & MapToDispatchType
+
+const DialogsContainer = connect(mapToPropsState, mapToDispatchType)(Dialogs)
+
+export default DialogsContainer

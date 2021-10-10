@@ -50,26 +50,26 @@ import {SEND_MESSAGE, UPDATE_NEW_MESSAGE_TEXT} from "./dialogs-reducer";
 //     dispatch: (action: ActionsTypes) => void
 // }
 
-type AddPostActionType = {
-    type: typeof ADD_POST
-}
-type UpdateNewPostTextActionType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    value: string
-}
-type SendMessageActionType = {
-    type: typeof SEND_MESSAGE
-}
-type UpdateNewMessageTextType = {
-    type: typeof UPDATE_NEW_MESSAGE_TEXT
-    value: string
-}
-
-export type ActionsTypes =
-    AddPostActionType
-    | UpdateNewPostTextActionType
-    | SendMessageActionType
-    | UpdateNewMessageTextType
+// type AddPostActionType = {
+//     type: typeof ADD_POST
+// }
+// type UpdateNewPostTextActionType = {
+//     type: typeof UPDATE_NEW_POST_TEXT
+//     value: string
+// }
+// type SendMessageActionType = {
+//     type: typeof SEND_MESSAGE
+// }
+// type UpdateNewMessageTextType = {
+//     type: typeof UPDATE_NEW_MESSAGE_TEXT
+//     value: string
+// }
+//
+// export type ActionsTypes =
+//     AddPostActionType
+//     | UpdateNewPostTextActionType
+//     | SendMessageActionType
+//     | UpdateNewMessageTextType
 
 
 

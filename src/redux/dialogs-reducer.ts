@@ -1,6 +1,3 @@
-type dialogsReducerType = (state: dialogsType, action: tsarType) => dialogsType
-
-
 export type DialogsDataObjectType = {
     name: string
     lastMessage: string
@@ -19,7 +16,7 @@ export type dialogsType = {
     newMessageText: string
 }
 
-const initialState = {
+const initialState: dialogsType = {
     dialogsData: [
         {
             id: 1,
@@ -57,7 +54,7 @@ const initialState = {
     newMessageText: '',
 }
 
-export const dialogsReducer: dialogsReducerType = (state = initialState, action) => {
+export const dialogsReducer = (state = initialState, action: tsarType): dialogsType => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_TEXT:
             state.newMessageText = action.value;

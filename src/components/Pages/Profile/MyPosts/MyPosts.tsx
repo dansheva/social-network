@@ -3,15 +3,9 @@ import {Post} from "../../../../common-components/Post/Post";
 import s from "./MyPosts.module.css"
 import {AddNewPost} from "../../../../common-components/Post/AddNewPost/AddNewPost";
 import { postsType } from "../../../../redux/profile-reducer";
+import {MyPostsPropsType} from "./MyPostsContainer";
 
-type PropsType = {
-    posts: postsType
-    newPostText: string
-    onInputChange: (text: string) => void
-    addPost: () => void
-}
-
-export function MyPosts(props: PropsType) {
+export function MyPosts(props: MyPostsPropsType) {
 
     let posts: Array<JSX.Element> = props.posts.map(p => {
         return (

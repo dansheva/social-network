@@ -1,20 +1,13 @@
 import React from 'react';
 import {ProfileInfo} from "./ProfileInfo/ProfileInfo";
-import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
-import {EmptyObject, Store} from "redux";
-import {dialogsType} from "../../../redux/dialogs-reducer";
-import { profileType } from '../../../redux/profile-reducer';
-
-type PropsType = {
-    store: Store<EmptyObject & {profile: profileType, dialogs: dialogsType}>
-}
+import MyPostsContainer from "./MyPosts/MyPostsContainer";
 
 
-function Profile (props: PropsType) {
+function Profile () {
     return(
         <div>
             <ProfileInfo />
-            <MyPostsContainer store={props.store} />
+            <MyPostsContainer/>
         </div>
     );
 }

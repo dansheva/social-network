@@ -1,5 +1,3 @@
-type profileReducerType = (state: profileType, action: tsarType) => profileType
-
 export type postObjectDataType = {
     id: number
     name: string
@@ -30,7 +28,7 @@ const initialState: profileType = {
     newPostText: '',
 }
 
-export const profileReducer: profileReducerType = (state = initialState, action) => {
+export const profileReducer = (state = initialState, action: tsarType): profileType => {
     switch (action.type) {
         case ADD_POST:
             const newPost: postObjectDataType = {

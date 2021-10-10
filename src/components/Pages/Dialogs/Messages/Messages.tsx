@@ -1,8 +1,7 @@
 import React from "react";
 import s from "./Messages.module.css";
-import {ActionsTypes} from "../../../../redux/store";
 import {NewMessageForm} from "./NewMessageForm/NewMessageForm";
-import {dialogsType, MessagesDataType} from "../../../../redux/dialogs-reducer";
+import {MessagesDataType} from "../../../../redux/dialogs-reducer";
 
 type PropsType = {
     messages: MessagesDataType
