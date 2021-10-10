@@ -37,12 +37,9 @@ export const profileReducer = (state = initialState, action: tsarType): profileT
                 name: "Danik",
                 time: new Date().getTime().toString()
             }
-            state.posts = [newPost, ...state.posts];
-            state.newPostText = '';
-            return state
+            return {...state, posts: [newPost, ...state.posts], newPostText: ''}
         case  UPDATE_NEW_POST_TEXT:
-            state.newPostText = action.value;
-            return state
+            return {...state, newPostText: action.value}
         default:
             return state
     }

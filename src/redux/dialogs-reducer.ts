@@ -57,16 +57,13 @@ const initialState: dialogsType = {
 export const dialogsReducer = (state = initialState, action: tsarType): dialogsType => {
     switch (action.type) {
         case UPDATE_NEW_MESSAGE_TEXT:
-            state.newMessageText = action.value;
-            return state
+            return {...state, newMessageText: action.value}
         case SEND_MESSAGE:
             const newMessage: MessagesDataObjectType = {
                 id: 3,
                 message: state.newMessageText
             }
-            state.messagesData.push(newMessage);
-            state.newMessageText = '';
-            return state
+            return {...state, messagesData: [...state.messagesData, newMessage], newMessageText: ''}
         default:
             return state
     }
