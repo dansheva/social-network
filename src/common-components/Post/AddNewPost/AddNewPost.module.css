@@ -1,7 +1,7 @@
 .new_post {
     background-color: #fff;
     display: grid;
-    grid-template-columns: 80px 1fr 105px;
+    grid-template-columns: 60px 1fr 105px;
     grid-template-rows: 48px;
     padding: 16px;
     border-radius: 10px;

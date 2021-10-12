@@ -1,0 +1,50 @@
+.user {
+    border-bottom: #EFEFEF solid 1px;
+    padding: 10px 0;
+    display: grid;
+    grid-template-columns: 60px 1fr 90px;
+}
+
+.user:last-child{
+    border-bottom: none;
+}
+
+.name_container{
+    margin-bottom: 4px;
+}
+
+.name{
+    font-weight: 600;
+    font-size: 16px;
+    color: #3d4557;
+}
+
+.location{
+    font-size: 16px;
+}
+
+.location, .status_container{
+    color: #838793;
+}
+
+.button_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button{
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 10px;
+    border-radius: 10px;
+}
+
+.button.follow{
+    background-color: #1878ED;
+    color: white;
+}
+.button.unfollow{
+    background-color: #EFEFEF;
+    color: #888888;
+}

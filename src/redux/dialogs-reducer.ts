@@ -69,8 +69,8 @@ export const dialogsReducer = (state = initialState, action: tsarType): dialogsT
     }
 }
 
-export const SEND_MESSAGE = 'SEND-MESSAGE';
-export const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
+const SEND_MESSAGE = 'SEND-MESSAGE';
+const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 
 type tsarType = updateNewMessageTextActionType | sendMessageActionCreatorType
 

@@ -47,10 +47,8 @@ export const profileReducer = (state = initialState, action: tsarType): profileT
 
 type tsarType = newPostElementActionType | addPostActionType
 
-export const ADD_POST = 'ADD-POST';
-export const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-
-
+const ADD_POST = 'ADD-POST';
+const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 type newPostElementActionType = ReturnType<typeof newPostElementActionCreator>
 export const newPostElementActionCreator = (value: string) => ({
         type: UPDATE_NEW_POST_TEXT,

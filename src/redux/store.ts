@@ -1,7 +1,4 @@
-import {ADD_POST, UPDATE_NEW_POST_TEXT} from "./profile-reducer";
-
-import {SEND_MESSAGE, UPDATE_NEW_MESSAGE_TEXT} from "./dialogs-reducer";
-
+import React from "react";
 // export type postObjectDataType = {
 //     id: number
 //     name: string
