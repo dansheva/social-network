@@ -6,6 +6,7 @@
     padding: 0 14px;
     background-color: #1878ED;
     border-radius: 10px;
+    cursor: pointer;
 }
 .icon_container {
     height: 16px;
