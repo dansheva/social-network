@@ -6,9 +6,7 @@ import React from "react";
 type PropsType = {
     id: number
     name: string
-    status: string
-    city: string
-    country: string
+    status?: string
     isFollowed: boolean
     followCallback: (userId: number) => void
     unFollowCallback: (userId: number) => void
@@ -33,7 +31,7 @@ export const User = (props: PropsType) => {
                         {props.name}
                     </span>
                     <span className={s.location}>
-                        {` from ${props.city}, ${props.country}`}
+                        {` from `}
                     </span>
                 </div>
                 <div className={s.status_container}>

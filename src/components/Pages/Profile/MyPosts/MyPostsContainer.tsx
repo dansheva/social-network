@@ -4,7 +4,6 @@ import {
     newPostElementActionCreator, postsType
 } from "../../../../redux/profile-reducer";
 import {connect} from "react-redux";
-import {Dialogs} from "../../Dialogs/Dialogs";
 import {AppStateType} from "../../../../redux/redux-store";
 import { Dispatch } from "redux";
 import {MyPosts} from "./MyPosts";

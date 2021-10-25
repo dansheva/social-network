@@ -9,6 +9,13 @@ import s from "./Navbar.module.css"
 import {UsersIcon} from "./Tab/Icons/UsersIcon";
 
 function Navbar() {
+
+    const arr = [
+        {id:1, title: 'profile', icon: 'profileIcon', href:'eee'},
+        {id:1, title: 'profile', icon: 'profileIcon', href:'eee'},
+    ]
+
+
     return (
         <nav className={`${s.nav} box_shadow`}>
             <Tab title={"Profile"} icon={<ProfileIcon/>} href={"/profile"}/>

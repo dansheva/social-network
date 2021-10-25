@@ -3,11 +3,15 @@ type LocationType = {
     country: string
 }
 export type UserType = {
+    name: string
     id: number
+    uniqueUrlName?: string
+    photos: {
+        small?: string
+        large?: string
+    }
+    status?: string
     followed: boolean
-    fullName: string
-    status: string
-    location: LocationType
 }
 export type UsersStateType = {
     users: UserType[]
@@ -18,17 +22,7 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 
 const initialState: UsersStateType = {
-    users: [
-        {id: 1, followed: true, fullName: 'Danik', status: 'Bla bla bla', location: {city: 'Kosice', country: 'Slovakia'}},
-        {id: 2, followed: false, fullName: 'Sasha', status: 'Bla bla bla', location: {city: 'Bratislava', country: 'Slovakia'}},
-        {id: 3, followed: true, fullName: 'Sofia', status: 'Bla bla bla', location: {city: 'Kyiv', country: 'Ukraine'}},
-        {id: 4, followed: false, fullName: 'Danik', status: 'Bla bla bla', location: {city: 'Kosice', country: 'Slovakia'}},
-        {id: 5, followed: true, fullName: 'Sasha', status: 'Bla bla bla', location: {city: 'Bratislava', country: 'Slovakia'}},
-        {id: 6, followed: true, fullName: 'Sofia', status: 'Bla bla bla', location: {city: 'Kyiv', country: 'Ukraine'}},
-        {id: 7, followed: false, fullName: 'Danik', status: 'Bla bla bla', location: {city: 'Kosice', country: 'Slovakia'}},
-        {id: 8, followed: true, fullName: 'Sasha', status: 'Bla bla bla', location: {city: 'Bratislava', country: 'Slovakia'}},
-        {id: 9, followed: true, fullName: 'Sofia', status: 'Bla bla bla', location: {city: 'Kyiv', country: 'Ukraine'}},
-    ]
+    users: []
 }
 
 export const usersReducer = (state = initialState, action: TsarType): UsersStateType => {
