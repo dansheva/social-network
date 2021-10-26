@@ -4,3 +4,17 @@
     border-radius: 10px;
 }
 
+.pages{
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+}
+
+.pages span{
+    font-size: 16px;
+    color: #838793;
+}
+
+.pages span.active{
+    color: #3d4557;
+}
