@@ -8,23 +8,40 @@ import {UserType} from "../../../redux/users-reducer";
 type ResponseType = {
     items: UserType[]
     totalCount: number
-    error: any
+    error: any ////////
 }
 
 class UsersC extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        axios.get<ResponseType>('https://social-network.samuraijs.com/api/1.0/users')
+        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
                 this.props.setUsers(response.data.items)
+                this.props.setUsersCount(response.data.totalCount);
+            })
+    }
+
+    pageChanging = (selectedPage: number) => {
+        this.props.setPage(selectedPage)
+        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${selectedPage}&count=${this.props.pageSize}`)
+            .then(response => {
+                this.props.setUsers(response.data.items);
+                this.props.setUsersCount(response.data.totalCount);
             })
     }
 
     render() {
 
-        let pagesCount = this.props.usersCount / this.props.pageSize;
+        let pagesCount = Math.ceil(this.props.usersCount / this.props.pageSize);
 
-        let pages
+        let pages = []
+
+        for (let i = 1; i <= pagesCount; i++) {
+            pages.push(i)
+        }
+
+        let pagesSpans = pages.map(page => <span onClick={() => this.pageChanging(page)}
+                                                 className={this.props.currentPage === page ? s.active : ""}>{page}</span>)
 
         let users = this.props.userData.map(u => {
             return (
@@ -44,11 +61,7 @@ class UsersC extends React.Component<UsersPropsType> {
                     {users}
                 </div>
                 <div className={s.pages}>
-                    <span className={s.active}>1</span>
-                    <span>2</span>
-                    <span>3</span>
-                    <span>4</span>
-                    <span>5</span>
+                    {pagesSpans}
                 </div>
             </div>
         );
