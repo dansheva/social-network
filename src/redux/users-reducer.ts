@@ -14,6 +14,7 @@ export type UsersStateType = {
     pageSize: number
     usersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 const FOLLOW = 'FOLLOW'
@@ -21,12 +22,14 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
+const SET_IS_FETCHING = 'SET-IS-FETCHING'
 
 const initialState: UsersStateType = {
     users: [],
     pageSize: 5,
     usersCount: 0,
-    currentPage: 1
+    currentPage: 1,
+    isFetching: false
 }
 
 export const usersReducer = (state = initialState, action: ActionsTypes): UsersStateType => {
@@ -41,6 +44,8 @@ export const usersReducer = (state = initialState, action: ActionsTypes): UsersS
             return {...state, currentPage: action.currentPage}
         case SET_TOTAL_USERS_COUNT:
             return {...state, usersCount: action.usersCount}
+        case SET_IS_FETCHING:
+            return {...state, isFetching: action.isFetching}
         default:
             return {...state}
     }
@@ -52,6 +57,7 @@ type ActionsTypes =
     | SetUsersActionType
     | SetCurrentPageActionType
     | setTotalUsersCountActionType
+    | setIsFetchingUsersActionType
 
 type FollowActionType = ReturnType<typeof followAC>
 export const followAC = (userId: number) => {
@@ -93,3 +99,10 @@ export const setTotalUsersCountAC = (usersCount: number) => {
     } as const
 }
 
+type setIsFetchingUsersActionType = ReturnType<typeof setIsFetchingUsersAC>
+export const setIsFetchingUsersAC = (isFetching: boolean) => {
+    return {
+        type: SET_IS_FETCHING,
+        isFetching
+    } as const
+}

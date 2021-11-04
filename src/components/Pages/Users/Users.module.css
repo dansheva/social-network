@@ -1,3 +1,7 @@
+.container{
+    position: relative;
+}
+
 .users{
     padding: 20px;
     background-color: #fff;
@@ -18,4 +22,17 @@
 
 .pages span.active{
     color: #3d4557;
+}
+
+.loading{
+    opacity: 0.3;
+}
+
+.loader{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
 }

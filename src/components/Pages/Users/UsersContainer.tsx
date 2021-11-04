@@ -4,7 +4,7 @@ import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
 import {
     followAC,
-    setCurrentPageAC,
+    setCurrentPageAC, setIsFetchingUsersAC,
     setTotalUsersCountAC,
     setUsersAC,
     unFollowAC,
@@ -18,6 +18,7 @@ type mapToStatePropsType = {
     pageSize: number
     usersCount: number
     currentPage: number
+    isFetching: boolean
 }
 
 const mapToPropsState = (state: AppStateType): mapToStatePropsType => {
@@ -25,7 +26,8 @@ const mapToPropsState = (state: AppStateType): mapToStatePropsType => {
         userData: state.users.users,
         pageSize: state.users.pageSize,
         usersCount: state.users.usersCount,
-        currentPage: state.users.currentPage
+        currentPage: state.users.currentPage,
+        isFetching: state.users.isFetching,
     }
 }
 
@@ -35,6 +37,7 @@ type mapToDispatchPropsType = {
     setUsers: (users: UserType[]) => void
     setPage: (pageNum: number) => void
     setUsersCount: (usersCount: number) => void
+    setIsFetchingUsers: (isFetching: boolean) => void
 }
 
 const mapToPropsDispatch = (dispatch: Dispatch): mapToDispatchPropsType => {
@@ -53,6 +56,9 @@ const mapToPropsDispatch = (dispatch: Dispatch): mapToDispatchPropsType => {
         },
         setUsersCount: usersCount => {
             dispatch(setTotalUsersCountAC(usersCount))
+        },
+        setIsFetchingUsers: isFetching => {
+            dispatch(setIsFetchingUsersAC(isFetching))
         }
     }
 }
@@ -64,22 +70,29 @@ type ResponseType = {
     totalCount: number
     error: any ////////
 }
+
 class UsersAPIComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
+        this.props.setIsFetchingUsers(true)
         axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
             .then(response => {
+                this.props.setIsFetchingUsers(false)
                 this.props.setUsers(response.data.items)
                 this.props.setUsersCount(response.data.totalCount);
             })
     }
+
     pageChanging = (selectedPage: number) => {
+        this.props.setIsFetchingUsers(true)
         this.props.setPage(selectedPage)
         axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${selectedPage}&count=${this.props.pageSize}`)
             .then(response => {
+                this.props.setIsFetchingUsers(false)
                 this.props.setUsers(response.data.items);
                 this.props.setUsersCount(response.data.totalCount);
             })
     }
+
     render() {
         return (
             <Users usersCount={this.props.usersCount}
@@ -88,7 +101,8 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                    userData={this.props.userData}
                    pageSize={this.props.pageSize}
                    followCallback={this.props.followCallback}
-                   unFollowCallback={this.props.unFollowCallback}/>
+                   unFollowCallback={this.props.unFollowCallback}
+                   isFetching={this.props.isFetching}/>
         );
     }
 }
