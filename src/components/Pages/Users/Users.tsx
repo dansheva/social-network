@@ -1,29 +1,33 @@
 import React from "react";
-import s from "./Users.module.css"
+import s from "./Users.module.css";
 import {User} from "./User/User";
-import {UsersPropsType} from "./UsersContainer";
-import axios from "axios";
 import {UserType} from "../../../redux/users-reducer";
 
-type ResponseType = {
-    items: UserType[]
-    totalCount: number
-    error: any
+
+type PropsType = {
+    usersCount: number
+    pageSize: number
+    pageChanging: (num: number) => void
+    currentPage: number
+    userData: UserType[]
+    followCallback: (userId: number) => void
+    unFollowCallback: (userId: number) => void
 }
 
-export const Users = (props: UsersPropsType) => {
+export const Users = (props: PropsType) => {
 
-    const getUsers = () => {
-        if (props.userData.length === 0) {
-            axios.get<ResponseType>('https://social-network.samuraijs.com/api/1.0/users')
-                .then(response => {
-                    debugger
-                    props.setUsers(response.data.items)
-                })
-        }
+    let pagesCount = Math.ceil(props.usersCount / props.pageSize);
+
+    let pages = []
+
+    for (let i = 1; i <= pagesCount; i++) {
+        pages.push(i)
     }
 
-    const users = props.userData.map(u => {
+    let pagesSpans = pages.map(page => <span onClick={() => props.pageChanging(page)}
+                                             className={props.currentPage === page ? s.active : ""}>{page}</span>)
+
+    let users = props.userData.map(u => {
         return (
             <User key={u.id}
                   id={u.id}
@@ -37,8 +41,12 @@ export const Users = (props: UsersPropsType) => {
 
     return (
         <div className={`${s.users} box_shadow`}>
-            <button onClick={getUsers}>Get users</button>
-            {users}
+            <div>
+                {users}
+            </div>
+            <div className={s.pages}>
+                {pagesSpans}
+            </div>
         </div>
     )
 }
