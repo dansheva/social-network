@@ -3,7 +3,7 @@ import {PostAvatar} from "../../../../common-components/Post/PostAvatar/PostAvat
 import React, {useState} from "react";
 import {NavLink} from "react-router-dom";
 import {LittleLoader} from "../../../../common-components/Loader/LittleLoader";
-import axios from "axios";
+import {UsersApi} from "../../../../api/api";
 
 
 type PropsType = {
@@ -15,61 +15,31 @@ type PropsType = {
     unFollowCallback: (userId: number) => void
     photo?: string
     href: string
-    isFetchingButton: boolean
-    setIsFetchingButton: (isFetching: boolean) => void
-}
-
-type FollowResponseType = {
-    resultCode: number
-    messages: string[]
-    data: any//////
-}
-
-type UnFollowResponseType = {
-    resultCode: number
-    messages: string[]
-    data: any//////
+    isFetchingButtons: string[]
+    setIsFetchingButtons: (isFetching: boolean, userId: string) => void
 }
 
 export const User = (props: PropsType) => {
 
-    const [isFetchingButton, setIsFetchingButton] = useState(false)
-
     const follow = () => {
-        setIsFetchingButton(true)
-        axios.post<FollowResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`, {},
-            {
-                withCredentials: true,
-                headers: {
-                    'API-KEY' : '3ff5e044-7ebc-4a4d-9e54-aeedd5e75e0c'
-                }
-            })
-            .then(res => {
-                setIsFetchingButton(false)
-                if (res.data.resultCode === 0) {
+        props.setIsFetchingButtons(true, props.id.toString())
+        UsersApi.followUser(props.id.toString())
+            .then(data => {
+                props.setIsFetchingButtons(false, props.id.toString())
+                if (data.resultCode === 0) {
                     props.followCallback(props.id)
                 }
             })
     }
 
     const unFollow = () => {
-        setIsFetchingButton(true)
-        axios.delete<UnFollowResponseType>(`https://social-network.samuraijs.com/api/1.0/follow/${props.id}`,
-            {
-                withCredentials: true,
-                headers: {
-                    'API-KEY' : '3ff5e044-7ebc-4a4d-9e54-aeedd5e75e0c'
-                }
-            })
-            .then(res => {
-                setIsFetchingButton(false)
-                if (res.data.resultCode === 0){
+        props.setIsFetchingButtons(true, props.id.toString())
+        UsersApi.unfollowUser(props.id.toString())
+            .then(data => {
+                props.setIsFetchingButtons(false, props.id.toString())
+                if (data.resultCode === 0){
                     props.unFollowCallback(props.id)
                 }
-            })
-            .catch(res => {
-                setIsFetchingButton(false)
-                debugger
             })
     }
 
@@ -94,12 +64,12 @@ export const User = (props: PropsType) => {
             <div className={s.button_container}>
                 {props.isFollowed
                     ? <div onClick={unFollow} className={`${s.button} ${s.unfollow}`}>
-                        {isFetchingButton
+                        {props.isFetchingButtons.some(id => id === props.id.toString())
                             ? <LittleLoader className={s.loader} backgroundColor={'#888888'}/>
                             : 'Unfollow'}
                     </div>
                     : <div onClick={follow} className={`${s.button} ${s.follow}`}>
-                        {isFetchingButton
+                        {props.isFetchingButtons.some(id => id === props.id.toString())
                             ? <LittleLoader className={s.loader}/>
                             : 'Follow'}
                     </div>}

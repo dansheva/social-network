@@ -10,8 +10,8 @@ import {
     unFollowAC,
     UserType
 } from "../../../redux/users-reducer";
-import axios from "axios";
 import {Users} from "./Users";
+import {UsersApi} from "../../../api/api";
 
 type mapToStatePropsType = {
     userData: UserType[]
@@ -19,7 +19,7 @@ type mapToStatePropsType = {
     usersCount: number
     currentPage: number
     isFetching: boolean
-    IsFetchingButton: boolean
+    IsFetchingButtons: string[]
 }
 
 const mapToPropsState = (state: AppStateType): mapToStatePropsType => {
@@ -29,7 +29,7 @@ const mapToPropsState = (state: AppStateType): mapToStatePropsType => {
         usersCount: state.users.usersCount,
         currentPage: state.users.currentPage,
         isFetching: state.users.isFetchingUsers,
-        IsFetchingButton: state.users.isFetchingButton,
+        IsFetchingButtons: state.users.isFetchingButtons,
     }
 }
 
@@ -40,7 +40,7 @@ type mapToDispatchPropsType = {
     setPage: (pageNum: number) => void
     setUsersCount: (usersCount: number) => void
     setIsFetchingUsers: (isFetching: boolean) => void
-    setIsFetchingButton: (isFetching: boolean) => void
+    setIsFetchingButtons: (isFetching: boolean, userId: string) => void
 }
 
 const mapToPropsDispatch = (dispatch: Dispatch): mapToDispatchPropsType => {
@@ -51,41 +51,31 @@ const mapToPropsDispatch = (dispatch: Dispatch): mapToDispatchPropsType => {
         setPage: pageNum => dispatch(setCurrentPageAC(pageNum)),
         setUsersCount: usersCount => dispatch(setTotalUsersCountAC(usersCount)),
         setIsFetchingUsers: isFetching => dispatch(setIsFetchingUsersAC(isFetching)),
-        setIsFetchingButton: isFetching => dispatch(setIsFetchingButtonAC(isFetching)),
+        setIsFetchingButtons: (isFetching, userId) => dispatch(setIsFetchingButtonAC(isFetching, userId)),
     }
 }
 
 export type UsersPropsType = mapToStatePropsType & mapToDispatchPropsType
 
-type ResponseType = {
-    items: UserType[]
-    totalCount: number
-    error: any ////////
-}
-
 class UsersAPIComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.setIsFetchingUsers(true)
-        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
-            withCredentials: true,
-        })
-            .then(response => {
+        UsersApi.getUsers(this.props.currentPage, this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetchingUsers(false)
-                this.props.setUsers(response.data.items)
-                this.props.setUsersCount(response.data.totalCount);
+                this.props.setUsers(data.items)
+                this.props.setUsersCount(data.totalCount);
             })
     }
 
     pageChanging = (selectedPage: number) => {
         this.props.setIsFetchingUsers(true)
         this.props.setPage(selectedPage)
-        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${selectedPage}&count=${this.props.pageSize}`, {
-            withCredentials: true,
-        })
-            .then(response => {
+        UsersApi.getUsers(selectedPage, this.props.pageSize)
+            .then(data => {
                 this.props.setIsFetchingUsers(false)
-                this.props.setUsers(response.data.items);
-                this.props.setUsersCount(response.data.totalCount);
+                this.props.setUsers(data.items);
+                this.props.setUsersCount(data.totalCount);
             })
     }
 
@@ -99,8 +89,8 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                    followCallback={this.props.followCallback}
                    unFollowCallback={this.props.unFollowCallback}
                    isFetching={this.props.isFetching}
-                   isFetchingButton={this.props.IsFetchingButton}
-                   setIsFetchingButton={this.props.setIsFetchingButton}/>
+                   isFetchingButtons={this.props.IsFetchingButtons}
+                   setIsFetchingButtons={this.props.setIsFetchingButtons}/>
         );
     }
 }

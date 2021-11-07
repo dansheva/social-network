@@ -15,7 +15,7 @@ export type UsersStateType = {
     usersCount: number
     currentPage: number
     isFetchingUsers: boolean
-    isFetchingButton: boolean
+    isFetchingButtons: string[]
 }
 
 const FOLLOW = 'FOLLOW'
@@ -32,7 +32,7 @@ const initialState: UsersStateType = {
     usersCount: 0,
     currentPage: 1,
     isFetchingUsers: false,
-    isFetchingButton: false,
+    isFetchingButtons: [],
 }
 
 export const usersReducer = (state = initialState, action: ActionsTypes): UsersStateType => {
@@ -50,7 +50,9 @@ export const usersReducer = (state = initialState, action: ActionsTypes): UsersS
         case SET_IS_FETCHING:
             return {...state, isFetchingUsers: action.isFetching}
         case SET_IS_FETCHING_BUTTON:
-            return {...state, isFetchingButton: action.isFetching}
+            return action.isFetching
+                ? {...state, isFetchingButtons: [...state.isFetchingButtons, action.userId]}
+                : {...state, isFetchingButtons: state.isFetchingButtons.filter(id => id !== action.userId)}
         default:
             return {...state}
     }
@@ -114,9 +116,10 @@ export const setIsFetchingUsersAC = (isFetching: boolean) => {
 }
 
 type setIsFetchingButtonActionType = ReturnType<typeof setIsFetchingButtonAC>
-export const setIsFetchingButtonAC = (isFetching: boolean) => ({
+export const setIsFetchingButtonAC = (isFetching: boolean, userId: string) => ({
         type: SET_IS_FETCHING_BUTTON,
-        isFetching
+        isFetching,
+        userId
     } as const
 )
 
