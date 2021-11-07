@@ -51,7 +51,9 @@ export const Users = (props: PropsType) => {
                   status={u.status}
                   isFollowed={u.followed}
                   followCallback={props.followCallback}
-                  unFollowCallback={props.unFollowCallback}/>
+                  unFollowCallback={props.unFollowCallback}
+                  photo={u.photos.small? u.photos.small : undefined}
+                  href={`profile/${u.id.toString()}`}/>
         )
     })
 

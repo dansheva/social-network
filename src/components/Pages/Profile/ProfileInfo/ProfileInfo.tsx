@@ -1,24 +1,40 @@
 import React from "react";
 import s from "./ProfileInfo.module.css"
+import {ProfileDataType} from "../../../../redux/profile-reducer";
+import {Loader} from "../../../../common-components/Loader/Loader";
 
-export function ProfileInfo() {
+type PropsType = {
+    profileData: ProfileDataType | null
+}
+
+export function ProfileInfo(props: PropsType) {
+
+
+    if (props.profileData === null) {
+        return (
+            <Loader/>
+        )
+    }
+
     return (
         <div className={s.profile_info}>
-            {/*<div className={s.big_image_container}>*/}
-            {/*    <img*/}
-            {/*        className={`${s.big_image} box_shadow`}*/}
-            {/*        src="https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"*/}
-            {/*        alt="img"/>*/}
-            {/*</div>*/}
             <div className={s.avatar_description_container}>
                 <div className={s.avatar_container}>
                     <img
                         className={s.avatar}
-                        src="https://www.pngkey.com/png/full/204-2049354_ic-account-box-48px-profile-picture-icon-square.png"
+                        src={`${
+                            props.profileData.photos.small !== null
+                                ? props.profileData.photos.small
+                                : 'https://cdn.dribbble.com/users/1355613/screenshots/15252730/media/28f348daf9654c440f5dcf398d8e097a.jpg'}`}
                         alt="avatar"/>
                 </div>
                 <div className={s.description}>
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit.
+                    {props.profileData.fullName && <div className={s.name}>
+                        {props.profileData.fullName}
+                    </div>}
+                    {props.profileData.aboutMe && <div className={s.about}>
+                        About me: {props.profileData.aboutMe}
+                    </div>}
                 </div>
             </div>
         </div>

@@ -13,10 +13,24 @@
 }
 .avatar_container {
     width: 60px;
+    overflow: hidden;
+    border-radius: 8px;
 }
+
+.name{
+    font-weight: 600;
+    font-size: 16px;
+    color: #3d4557;
+    margin-bottom: 4px;
+}
+
+.about{
+    color: #838793;
+}
+
 .avatar {
     width: 100%;
 }
 .description {
-    padding: 8px;
+    padding: 0 8px;
 }
