@@ -34,10 +34,16 @@
 }
 
 .button{
+    width: 100px;
+    height: 40px;
     font-size: 16px;
     font-weight: 600;
     padding: 8px 10px;
     border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
 }
 
 .button.follow{
@@ -47,4 +53,8 @@
 .button.unfollow{
     background-color: #EFEFEF;
     color: #888888;
+}
+
+.loader{
+    margin-top: -10px;
 }

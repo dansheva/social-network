@@ -4,7 +4,7 @@ import {AppStateType} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
 import {
     followAC,
-    setCurrentPageAC, setIsFetchingUsersAC,
+    setCurrentPageAC, setIsFetchingButtonAC, setIsFetchingUsersAC,
     setTotalUsersCountAC,
     setUsersAC,
     unFollowAC,
@@ -19,6 +19,7 @@ type mapToStatePropsType = {
     usersCount: number
     currentPage: number
     isFetching: boolean
+    IsFetchingButton: boolean
 }
 
 const mapToPropsState = (state: AppStateType): mapToStatePropsType => {
@@ -27,7 +28,8 @@ const mapToPropsState = (state: AppStateType): mapToStatePropsType => {
         pageSize: state.users.pageSize,
         usersCount: state.users.usersCount,
         currentPage: state.users.currentPage,
-        isFetching: state.users.isFetching,
+        isFetching: state.users.isFetchingUsers,
+        IsFetchingButton: state.users.isFetchingButton,
     }
 }
 
@@ -38,28 +40,18 @@ type mapToDispatchPropsType = {
     setPage: (pageNum: number) => void
     setUsersCount: (usersCount: number) => void
     setIsFetchingUsers: (isFetching: boolean) => void
+    setIsFetchingButton: (isFetching: boolean) => void
 }
 
 const mapToPropsDispatch = (dispatch: Dispatch): mapToDispatchPropsType => {
     return {
-        followCallback: userId => {
-            dispatch(followAC(userId))
-        },
-        unFollowCallback: userId => {
-            dispatch(unFollowAC(userId))
-        },
-        setUsers: users => {
-            dispatch(setUsersAC(users))
-        },
-        setPage: pageNum => {
-            dispatch(setCurrentPageAC(pageNum))
-        },
-        setUsersCount: usersCount => {
-            dispatch(setTotalUsersCountAC(usersCount))
-        },
-        setIsFetchingUsers: isFetching => {
-            dispatch(setIsFetchingUsersAC(isFetching))
-        }
+        followCallback: userId => dispatch(followAC(userId)),
+        unFollowCallback: userId => dispatch(unFollowAC(userId)),
+        setUsers: users => dispatch(setUsersAC(users)),
+        setPage: pageNum => dispatch(setCurrentPageAC(pageNum)),
+        setUsersCount: usersCount => dispatch(setTotalUsersCountAC(usersCount)),
+        setIsFetchingUsers: isFetching => dispatch(setIsFetchingUsersAC(isFetching)),
+        setIsFetchingButton: isFetching => dispatch(setIsFetchingButtonAC(isFetching)),
     }
 }
 
@@ -74,7 +66,9 @@ type ResponseType = {
 class UsersAPIComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
         this.props.setIsFetchingUsers(true)
-        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`)
+        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`, {
+            withCredentials: true,
+        })
             .then(response => {
                 this.props.setIsFetchingUsers(false)
                 this.props.setUsers(response.data.items)
@@ -85,7 +79,9 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
     pageChanging = (selectedPage: number) => {
         this.props.setIsFetchingUsers(true)
         this.props.setPage(selectedPage)
-        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${selectedPage}&count=${this.props.pageSize}`)
+        axios.get<ResponseType>(`https://social-network.samuraijs.com/api/1.0/users?page=${selectedPage}&count=${this.props.pageSize}`, {
+            withCredentials: true,
+        })
             .then(response => {
                 this.props.setIsFetchingUsers(false)
                 this.props.setUsers(response.data.items);
@@ -102,7 +98,9 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
                    pageSize={this.props.pageSize}
                    followCallback={this.props.followCallback}
                    unFollowCallback={this.props.unFollowCallback}
-                   isFetching={this.props.isFetching}/>
+                   isFetching={this.props.isFetching}
+                   isFetchingButton={this.props.IsFetchingButton}
+                   setIsFetchingButton={this.props.setIsFetchingButton}/>
         );
     }
 }

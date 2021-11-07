@@ -1,0 +1,37 @@
+.loader div{
+    width: 8px;
+    height: 8px;
+    margin: 0 4px 0 0;
+    border-radius: 50px;
+    transform-origin: 50% 0;
+    display: inline-block;
+    animation: bounce 800ms linear infinite;
+}
+.loader div:last-child{ margin: 0; }
+.loader div:nth-child(1){ background: #ffffff; }
+.loader div:nth-child(2){
+    background: #ffffff;
+    animation-delay: 0.1s;
+}
+.loader div:nth-child(3){
+    background: #ffffff;
+    animation-delay: 0.2s;
+}
+@keyframes bounce{
+    0%, 100%{
+        transform: translateY(0px) scale(1, 1);
+        animation-timing-function: ease-in;
+    }
+    45%{
+        transform: translateY(8px) scale(1, 1);
+        animation-timing-function: linear;
+    }
+    50%{
+        transform: translateY(8px) scale(1, 1);
+        animation-timing-function: linear;
+    }
+    55%{
+        transform: translateY(8px) scale(1, 1);
+        animation-timing-function: ease-out;
+    }
+}

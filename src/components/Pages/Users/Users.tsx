@@ -14,6 +14,8 @@ type PropsType = {
     followCallback: (userId: number) => void
     unFollowCallback: (userId: number) => void
     isFetching: boolean
+    isFetchingButton: boolean
+    setIsFetchingButton: (isFetching: boolean) => void
 }
 
 export const Users = (props: PropsType) => {
@@ -53,7 +55,9 @@ export const Users = (props: PropsType) => {
                   followCallback={props.followCallback}
                   unFollowCallback={props.unFollowCallback}
                   photo={u.photos.small? u.photos.small : undefined}
-                  href={`profile/${u.id.toString()}`}/>
+                  href={`profile/${u.id.toString()}`}
+                  isFetchingButton={props.isFetchingButton}
+                  setIsFetchingButton={props.setIsFetchingButton}/>
         )
     })
 
