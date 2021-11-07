@@ -5,9 +5,15 @@
     padding: 20px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
-.header__image {
-    fill: #1878ED;
-    height: 36px;
-    display: block;
+
+.login{
+    background-color: #1878ED;
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 10px;
+    cursor: pointer;
 }

@@ -11,8 +11,8 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
 
     componentDidMount() {
-        let userId = this.props.match.params.userId
-        if (!userId){
+        let userId: string = this.props.match.params.userId
+        if (!userId) {
             userId = '2'
         }
         axios.get<ProfileDataType>(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
@@ -35,7 +35,7 @@ type MapStateToPropsType = {
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
-        profileData: state.profile.profile? state.profile.profile : null
+        profileData: state.profile.profile ? state.profile.profile : null
     }
 }
 
