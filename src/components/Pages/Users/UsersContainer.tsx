@@ -1,17 +1,15 @@
 import React from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
-import {Dispatch} from "redux";
+import { ThunkDispatch } from 'redux-thunk';
 import {
-    followAC,
-    setCurrentPageAC, setIsFetchingButtonAC, setIsFetchingUsersAC,
-    setTotalUsersCountAC,
-    setUsersAC,
+    ActionsTypes,
+    followAC, getUsersThunkCreator,
+    setIsFetchingButtonAC, setIsFetchingUsersAC,
     unFollowAC,
     UserType
 } from "../../../redux/users-reducer";
 import {Users} from "./Users";
-import {UsersApi} from "../../../api/api";
 
 type mapToStatePropsType = {
     userData: UserType[]
@@ -36,22 +34,18 @@ const mapToPropsState = (state: AppStateType): mapToStatePropsType => {
 type mapToDispatchPropsType = {
     followCallback: (userId: number) => void
     unFollowCallback: (userId: number) => void
-    setUsers: (users: UserType[]) => void
-    setPage: (pageNum: number) => void
-    setUsersCount: (usersCount: number) => void
     setIsFetchingUsers: (isFetching: boolean) => void
     setIsFetchingButtons: (isFetching: boolean, userId: string) => void
+    getUsers: (currentPage: number, pageSize: number) => void
 }
 
-const mapToPropsDispatch = (dispatch: Dispatch): mapToDispatchPropsType => {
+const mapToPropsDispatch = (dispatch: ThunkDispatch<AppStateType, void, ActionsTypes>): mapToDispatchPropsType => {
     return {
         followCallback: userId => dispatch(followAC(userId)),
         unFollowCallback: userId => dispatch(unFollowAC(userId)),
-        setUsers: users => dispatch(setUsersAC(users)),
-        setPage: pageNum => dispatch(setCurrentPageAC(pageNum)),
-        setUsersCount: usersCount => dispatch(setTotalUsersCountAC(usersCount)),
         setIsFetchingUsers: isFetching => dispatch(setIsFetchingUsersAC(isFetching)),
         setIsFetchingButtons: (isFetching, userId) => dispatch(setIsFetchingButtonAC(isFetching, userId)),
+        getUsers: (currentPage: number, pageSize: number) => dispatch(getUsersThunkCreator(currentPage, pageSize)),
     }
 }
 
@@ -59,24 +53,11 @@ export type UsersPropsType = mapToStatePropsType & mapToDispatchPropsType
 
 class UsersAPIComponent extends React.Component<UsersPropsType> {
     componentDidMount() {
-        this.props.setIsFetchingUsers(true)
-        UsersApi.getUsers(this.props.currentPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetchingUsers(false)
-                this.props.setUsers(data.items)
-                this.props.setUsersCount(data.totalCount);
-            })
+        this.props.getUsers(this.props.currentPage, this.props.pageSize)
     }
 
     pageChanging = (selectedPage: number) => {
-        this.props.setIsFetchingUsers(true)
-        this.props.setPage(selectedPage)
-        UsersApi.getUsers(selectedPage, this.props.pageSize)
-            .then(data => {
-                this.props.setIsFetchingUsers(false)
-                this.props.setUsers(data.items);
-                this.props.setUsersCount(data.totalCount);
-            })
+        this.props.getUsers(selectedPage, this.props.pageSize)
     }
 
     render() {
