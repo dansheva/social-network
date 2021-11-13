@@ -8,6 +8,7 @@ import {
     UserType
 } from "../../../redux/users-reducer";
 import {Users} from "./Users";
+import {withAuthRedirect} from "../../../withAuthRedirect";
 
 type mapToStatePropsType = {
     userData: UserType[]
@@ -70,4 +71,4 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
     }
 }
 
-export const UsersContainer = connect(mapToPropsState, mapToPropsDispatch)(UsersAPIComponent)
+export const UsersContainer = withAuthRedirect(connect(mapToPropsState, mapToPropsDispatch)(UsersAPIComponent))

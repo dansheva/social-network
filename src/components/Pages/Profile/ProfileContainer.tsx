@@ -6,6 +6,7 @@ import {ProfileDataType, setUserProfileThunkCreator} from "../../../redux/profil
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ThunkDispatch} from "redux-thunk";
 import {ActionTypes} from "../../../redux/profile-reducer";
+import {withAuthRedirect} from "../../../withAuthRedirect";
 
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
@@ -50,4 +51,4 @@ type PathParamsType = {
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfileContainer))
+export default withAuthRedirect(connect(mapStateToProps, mapDispatchToProps)(withRouter(ProfileContainer)))

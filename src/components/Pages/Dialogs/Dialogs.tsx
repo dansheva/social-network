@@ -4,9 +4,7 @@ import {DialogsSidebar} from "./DialogsSidebar/DialogsSidebar";
 import {Messages} from "./Messages/Messages";
 import {DialogsPropsType} from "./DialogsContainer";
 
-
 export function Dialogs(props: DialogsPropsType) {
-
     return (
         <div className={`${s.dialogs} box_shadow`}>
             <DialogsSidebar dialogsTabsData={props.dialogsData} />
