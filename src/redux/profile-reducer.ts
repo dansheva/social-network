@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {ProfileApi} from "../api/api";
+
 export type postObjectDataType = {
     id: number
     name: string
@@ -73,7 +76,7 @@ export const profileReducer = (state = initialState, action: ActionTypes): profi
     }
 }
 
-type ActionTypes = newPostElementActionType | addPostActionType | setUserProfileActionType
+export type ActionTypes = newPostElementActionType | addPostActionType | setUserProfileActionType
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
@@ -98,3 +101,12 @@ export const setUserProfileAC = (profileData: ProfileDataType) => ({
         profileData,
     } as const
 )
+
+
+export const setUserProfileThunkCreator = (id: string) => (dispatch: Dispatch) => {
+
+    ProfileApi.getProfileData(id)
+        .then(data => {
+            dispatch(setUserProfileAC(data))
+        })
+}

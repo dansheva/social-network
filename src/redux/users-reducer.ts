@@ -127,18 +127,38 @@ export const setIsFetchingButtonAC = (isFetching: boolean, userId: string) => ({
 )
 
 
-export const getUsersThunkCreator = (currentPage: number, pageSize: number) => {
-    return (dispatch: Dispatch) => {
-
-        dispatch(setIsFetchingUsersAC(true))
-
-        UsersApi.getUsers(currentPage, pageSize)
-            .then(data => {
-                dispatch(setIsFetchingUsersAC(false))
-                dispatch(setCurrentPageAC(currentPage))
-                dispatch(setUsersAC(data.items))
-                dispatch(setTotalUsersCountAC(data.totalCount))
-            })
-    }
+export const getUsersThunkCreator = (currentPage: number, pageSize: number) => (dispatch: Dispatch) => {
+    dispatch(setIsFetchingUsersAC(true))
+    UsersApi.getUsers(currentPage, pageSize)
+        .then(data => {
+            dispatch(setIsFetchingUsersAC(false))
+            dispatch(setCurrentPageAC(currentPage))
+            dispatch(setUsersAC(data.items))
+            dispatch(setTotalUsersCountAC(data.totalCount))
+        })
 }
+
+export const followThunkCreator = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(setIsFetchingButtonAC(true, userId.toString()))
+    UsersApi.followUser(userId.toString())
+        .then(data => {
+            dispatch(setIsFetchingButtonAC(false, userId.toString()))
+            if (data.resultCode === 0) {
+                dispatch(followAC(userId))
+            }
+        })
+}
+
+
+export const unFollowThunkCreator = (userId: number) => (dispatch: Dispatch) => {
+    dispatch(setIsFetchingButtonAC(true, userId.toString()))
+    UsersApi.unfollowUser(userId.toString())
+        .then(data => {
+            dispatch(setIsFetchingButtonAC(false, userId.toString()))
+            if (data.resultCode === 0) {
+                dispatch(unFollowAC(userId))
+            }
+        })
+}
+
 

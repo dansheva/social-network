@@ -11,11 +11,10 @@ type PropsType = {
     pageChanging: (num: number) => void
     currentPage: number
     userData: UserType[]
-    followCallback: (userId: number) => void
-    unFollowCallback: (userId: number) => void
     isFetching: boolean
     isFetchingButtons: string[]
-    setIsFetchingButtons: (isFetching: boolean, userId: string) => void
+    followUser: (userId: number) => void
+    unFollowUser: (userId: number) => void
 }
 
 export const Users = (props: PropsType) => {
@@ -52,12 +51,11 @@ export const Users = (props: PropsType) => {
                   name={u.name}
                   status={u.status}
                   isFollowed={u.followed}
-                  followCallback={props.followCallback}
-                  unFollowCallback={props.unFollowCallback}
                   photo={u.photos.small? u.photos.small : undefined}
                   href={`profile/${u.id.toString()}`}
                   isFetchingButtons={props.isFetchingButtons}
-                  setIsFetchingButtons={props.setIsFetchingButtons}/>
+                  followUser={props.followUser}
+                  unFollowUser={props.unFollowUser}/>
         )
     })
 

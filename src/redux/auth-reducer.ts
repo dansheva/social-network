@@ -1,3 +1,6 @@
+import {HeaderApi, ProfileApi} from "../api/api";
+import {Dispatch} from "redux";
+
 export type UserDataType = {
     id: number | null
     email: string | null
@@ -35,7 +38,7 @@ export const authReducer = (state = initialState, action: ActionTypes) => {
 const SET_USER_DATA = 'SET-USER-DATA'
 const SET_USER_AVATAR = 'SET-USER-AVATAR'
 
-type ActionTypes = setUserDataActionType | setUserAvatarActionType
+export type ActionTypes = setUserDataActionType | setUserAvatarActionType
 
 type setUserDataActionType = ReturnType<typeof setUserDataAC>
 export const setUserDataAC = (userData: UserDataType) => ({
@@ -50,4 +53,22 @@ export const setUserAvatarAC = (userAvatar: string) => ({
         userAvatar
     } as const
 )
+
+
+export const setAuthUserAndAvatarThunkCreator = () => (dispatch: Dispatch) => {
+    HeaderApi.isUserAuth()
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(setUserDataAC(data.data))
+                if (data.data.id) {
+                    ProfileApi.getProfileData(data.data.id.toString())
+                        .then(data => {
+                            if (data.photos.small) {
+                                dispatch(setUserAvatarAC(data.photos.small))
+                            }
+                        })
+                }
+            }
+        })
+}
 

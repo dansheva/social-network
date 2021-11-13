@@ -2,10 +2,10 @@ import React from "react";
 import Profile from "./Profile";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
-import {Dispatch} from "redux";
-import {ProfileDataType, setUserProfileAC} from "../../../redux/profile-reducer";
+import {ProfileDataType, setUserProfileThunkCreator} from "../../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
-import {ProfileApi} from "../../../api/api";
+import {ThunkDispatch} from "redux-thunk";
+import {ActionTypes} from "../../../redux/profile-reducer";
 
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
@@ -13,12 +13,9 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         let userId: string = this.props.match.params.userId
         if (!userId) {
-            userId = '2'
+            userId = '20210'
         }
-        ProfileApi.getProfileData(userId)
-            .then(data => {
-                this.props.setUserProfile(data)
-            })
+        this.props.setUserProfile(userId)
     }
 
     render() {
@@ -40,11 +37,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 type MapDispatchToPropsType = {
-    setUserProfile: (userProfileData: ProfileDataType) => void
+    setUserProfile: (userId: string) => void
 }
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
+const mapDispatchToProps = (dispatch: ThunkDispatch<AppStateType, void, ActionTypes>): MapDispatchToPropsType => {
     return {
-        setUserProfile: userProfileData => dispatch(setUserProfileAC(userProfileData))
+        setUserProfile: userId => dispatch(setUserProfileThunkCreator(userId))
     }
 }
 

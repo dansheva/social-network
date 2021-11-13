@@ -1,9 +1,8 @@
 import s from "./User.module.css";
 import {PostAvatar} from "../../../../common-components/Post/PostAvatar/PostAvatar";
-import React, {useState} from "react";
+import React from "react";
 import {NavLink} from "react-router-dom";
 import {LittleLoader} from "../../../../common-components/Loader/LittleLoader";
-import {UsersApi} from "../../../../api/api";
 
 
 type PropsType = {
@@ -11,36 +10,22 @@ type PropsType = {
     name: string
     status?: string
     isFollowed: boolean
-    followCallback: (userId: number) => void
-    unFollowCallback: (userId: number) => void
     photo?: string
     href: string
     isFetchingButtons: string[]
-    setIsFetchingButtons: (isFetching: boolean, userId: string) => void
+    followUser: (userId: number) => void
+    unFollowUser: (userId: number) => void
 }
 
 export const User = (props: PropsType) => {
 
     const follow = () => {
-        props.setIsFetchingButtons(true, props.id.toString())
-        UsersApi.followUser(props.id.toString())
-            .then(data => {
-                props.setIsFetchingButtons(false, props.id.toString())
-                if (data.resultCode === 0) {
-                    props.followCallback(props.id)
-                }
-            })
+        props.followUser(props.id)
     }
 
     const unFollow = () => {
-        props.setIsFetchingButtons(true, props.id.toString())
-        UsersApi.unfollowUser(props.id.toString())
-            .then(data => {
-                props.setIsFetchingButtons(false, props.id.toString())
-                if (data.resultCode === 0){
-                    props.unFollowCallback(props.id)
-                }
-            })
+        debugger
+        props.unFollowUser(props.id)
     }
 
     return (

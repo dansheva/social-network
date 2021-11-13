@@ -16,13 +16,7 @@ type GetUsersResponseType = {
     error: any ////////
 }
 
-type FollowResponseType = {
-    resultCode: number
-    messages: string[]
-    data: any//////
-}
-
-type UnFollowResponseType = {
+type FollowUnFollowResponseType = {
     resultCode: number
     messages: string[]
     data: any//////
@@ -44,11 +38,11 @@ export const UsersApi = {
             .then(res => res.data)
     },
     followUser: (id: string) => {
-        return instance.post<FollowResponseType>(`follow/${id}`)
+        return instance.post<FollowUnFollowResponseType>(`follow/${id}`)
             .then(res => res.data)
     },
     unfollowUser: (id: string) => {
-        return instance.delete<UnFollowResponseType>(`follow/${id}`)
+        return instance.delete<FollowUnFollowResponseType>(`follow/${id}`)
             .then(res => res.data)
     },
 }
