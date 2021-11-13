@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {
     DialogsTabsDataType, MessagesDataType,
     sendMessageActionCreator,
@@ -7,7 +7,7 @@ import {
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
-import {Dispatch} from "redux";
+import {compose, Dispatch} from "redux";
 import {withAuthRedirect} from "../../../withAuthRedirect";
 
 type MapToPropsStateType = {
@@ -44,6 +44,7 @@ const mapToDispatchType = (dispatch: Dispatch): MapToDispatchType => {
 
 export type DialogsPropsType = MapToPropsStateType & MapToDispatchType
 
-const DialogsContainer = withAuthRedirect(connect(mapToPropsState, mapToDispatchType)(Dialogs))
-
-export default DialogsContainer
+export default compose<ComponentType>(
+    withAuthRedirect,
+    connect(mapToPropsState, mapToDispatchType)
+)(Dialogs)

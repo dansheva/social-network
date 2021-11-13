@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ComponentType} from "react";
 import {connect} from "react-redux";
 import {AppStateType} from "../../../redux/redux-store";
 import { ThunkDispatch } from 'redux-thunk';
@@ -9,6 +9,7 @@ import {
 } from "../../../redux/users-reducer";
 import {Users} from "./Users";
 import {withAuthRedirect} from "../../../withAuthRedirect";
+import {compose} from "redux";
 
 type mapToStatePropsType = {
     userData: UserType[]
@@ -71,4 +72,8 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
     }
 }
 
-export const UsersContainer = withAuthRedirect(connect(mapToPropsState, mapToPropsDispatch)(UsersAPIComponent))
+export default compose<ComponentType>(
+    withAuthRedirect,
+    connect(mapToPropsState, mapToPropsDispatch)
+)(UsersAPIComponent)
+

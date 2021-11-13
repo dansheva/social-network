@@ -2,6 +2,7 @@ import React from "react";
 import s from "./ProfileInfo.module.css"
 import {ProfileDataType} from "../../../../redux/profile-reducer";
 import {Loader} from "../../../../common-components/Loader/Loader";
+import {ProfileStatus} from "./ProfileStatus/ProfileStatus";
 
 type PropsType = {
     profileData: ProfileDataType | null
@@ -32,9 +33,7 @@ export function ProfileInfo(props: PropsType) {
                     {props.profileData.fullName && <div className={s.name}>
                         {props.profileData.fullName}
                     </div>}
-                    {props.profileData.aboutMe && <div className={s.about}>
-                        About me: {props.profileData.aboutMe}
-                    </div>}
+                    <ProfileStatus status={props.profileData.aboutMe} />
                 </div>
             </div>
         </div>
