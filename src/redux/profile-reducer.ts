@@ -9,7 +9,7 @@ export type postObjectDataType = {
 }
 export type postsType = Array<postObjectDataType>;
 
-type ContactsType = {
+export type ContactsType = {
     facebook: string | null
     website: string | null
     vk: string | null
@@ -19,7 +19,7 @@ type ContactsType = {
     github: string | null
     mainLink: string | null
 }
-type PhotosType = {
+export type PhotosType = {
     small: string | null
     large: string | null
 }
@@ -36,6 +36,7 @@ export type profileType = {
     posts: postsType
     newPostText: string
     profile: ProfileDataType | null
+    status: string | null
 }
 
 const initialState: profileType = {
@@ -55,6 +56,7 @@ const initialState: profileType = {
     ],
     newPostText: '',
     profile: null,
+    status: null
 }
 
 export const profileReducer = (state = initialState, action: ActionTypes): profileType => {
@@ -71,16 +73,26 @@ export const profileReducer = (state = initialState, action: ActionTypes): profi
             return {...state, newPostText: action.value}
         case SET_USER_PROFILE:
             return {...state, profile: action.profileData}
+        case SET_USER_STATUS:
+            return {...state, status: action.status}
+        case UPDATE_USER_STATUS:
+            return {...state, status: action.status}
         default:
             return state
     }
 }
 
-export type ActionTypes = newPostElementActionType | addPostActionType | setUserProfileActionType
+export type ActionTypes = newPostElementActionType
+    | addPostActionType
+    | setUserProfileActionType
+    | setUserStatusActionType
+    | UpdateUserStatusActionType
 
 const ADD_POST = 'ADD-POST';
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
+const SET_USER_STATUS = 'SET-USER-STATUS'
+const UPDATE_USER_STATUS = 'UPDATE-USER-STATUS'
 
 type newPostElementActionType = ReturnType<typeof newPostElementActionCreator>
 export const newPostElementActionCreator = (value: string) => ({
@@ -102,11 +114,40 @@ export const setUserProfileAC = (profileData: ProfileDataType) => ({
     } as const
 )
 
+type setUserStatusActionType = ReturnType<typeof setUserStatusAC>
+export const setUserStatusAC = (status: string) => ({
+        type: SET_USER_STATUS,
+        status,
+    } as const
+)
 
-export const setUserProfileThunkCreator = (id: string) => (dispatch: Dispatch) => {
+type UpdateUserStatusActionType = ReturnType<typeof updateUserStatusAC>
+export const updateUserStatusAC = (status: string) => ({
+        type: UPDATE_USER_STATUS,
+        status,
+    } as const
+)
 
-    ProfileApi.getProfileData(id)
+
+export const setUserProfileThunkCreator = (userId: string) => (dispatch: Dispatch) => {
+    ProfileApi.getProfileData(userId)
         .then(data => {
             dispatch(setUserProfileAC(data))
+        })
+}
+
+export const setUserStatusThunkCreator = (userId: string) => (dispatch: Dispatch) => {
+    ProfileApi.getProfileStatus(userId)
+        .then(data => {
+            data && dispatch(setUserStatusAC(data));
+        })
+}
+
+export const updateUserStatusThunkCreator = (status: string) => (dispatch: Dispatch) => {
+    ProfileApi.updateUserStatus(status)
+        .then(data => {
+            if (data.resultCode === 0) {
+                dispatch(updateUserStatusAC(status))
+            }
         })
 }

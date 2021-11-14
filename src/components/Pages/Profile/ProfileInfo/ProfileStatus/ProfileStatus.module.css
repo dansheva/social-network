@@ -1,0 +1,8 @@
+.status_title{
+    color: #838793;
+}
+
+.status_container{
+    display: flex;
+    gap: 4px
+}
