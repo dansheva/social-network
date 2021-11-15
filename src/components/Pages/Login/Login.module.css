@@ -23,58 +23,7 @@
 .login_container{
     display: flex;
     flex-direction: column;
-    height: 105px;
+    height: 235px;
     justify-content: space-between;
 }
 
-.label{
-    color: #3D4556;
-    font-size: 16px;
-    margin-bottom: 5px;
-}
-
-
-
-
-
-
-
-
-
-
-
-/*
-    input
-*/
-.error {
-    color: #ED1729;
-}
-
-.input:focus{
-    outline: none;
-}
-.input{
-    padding: 8px 10px;
-    background-color: #efefef;
-    border: 1px solid #eaeaea;
-    font-size: 16px;
-    border-radius: 6px;
-    transition: 0.2s ease;
-    width: 300px;
-}
-.input:hover{
-    border: 1px solid #D1D1D1;
-}
-.input:focus{
-    border: 1px solid #1878ED;
-}
-.errorInput {
-    border: 1px solid #ED1729;
-    background-color: rgba(237, 23, 41, 0.2);
-}
-.errorInput:hover {
-    border: 1px solid #ED1729;
-}
-.errorInput:focus{
-    border: 1px solid #ED1729;
-}
