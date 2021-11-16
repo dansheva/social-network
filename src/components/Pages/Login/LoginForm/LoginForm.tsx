@@ -2,7 +2,7 @@ import React from "react";
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import s from "./LoginForm.module.css";
 
-type FormDataType = {
+export type FormDataType = {
     login: string
     password: string
     rememberMe: boolean
@@ -14,11 +14,12 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     const finalInputClassName = `${s.input} ${error ? s.errorInput : s.superInput}`
 
     return(
-        <form  className={s.form}>
+        <form onSubmit={props.handleSubmit} className={s.form}>
             <div>
                 <label>
                     <div className={s.label}>E-mail</div>
                     <Field
+                        name={'login'}
                         component={'input'}
                         type={'text'}
                         placeholder={"E-mail"}
@@ -29,6 +30,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                 <label>
                     <div className={s.label}>Password</div>
                     <Field
+                        name={'password'}
                         component={'input'}
                         type={'password'}
                         placeholder={"Password"}
@@ -38,6 +40,7 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
             <div>
                 <label className={s.label}>
                     <Field
+                        name={'rememberMe'}
                         component={'input'}
                         type={'checkbox'}
                         onChange={() => {}}
