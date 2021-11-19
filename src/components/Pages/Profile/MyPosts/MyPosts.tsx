@@ -17,7 +17,7 @@ export function MyPosts(props: MyPostsPropsType) {
             <div className={s.title}>
                 My posts
             </div>
-            <AddNewPost addPost={props.addPost} onInputChange={props.onInputChange} newPostText={props.newPostText}/>
+            <AddNewPost addPost={props.addPost}/>
             <div className="my_posts">
                 {posts}
             </div>

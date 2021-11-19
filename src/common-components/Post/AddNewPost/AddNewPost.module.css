@@ -1,20 +1,8 @@
 .new_post {
     background-color: #fff;
     display: grid;
-    grid-template-columns: 60px 1fr 105px;
+    grid-template-columns: 60px 1fr;
     grid-template-rows: 48px;
     padding: 16px;
     border-radius: 10px;
-}
-.input {
-    height: 48px;
-    font-size: 16px;
-    font-weight: 600;
-    color: #3d4557;
-}
-
-.input::placeholder {
-    font-weight: 600;
-    font-size: 16px;
-    color: #838793;
 }

@@ -1,13 +1,11 @@
 import React from "react";
 import s from "./Messages.module.css";
-import {NewMessageForm} from "./NewMessageForm/NewMessageForm";
+import NewMessageForm, {NewMessageFormPropsType} from "./NewMessageForm/NewMessageForm";
 import {MessagesDataType} from "../../../../redux/dialogs-reducer";
 
 type PropsType = {
     messages: MessagesDataType
-    newMessageText: string
-    onInputChange: (text: string) => void
-    sendMessage: () => void
+    sendMessage: (newMessage: string) => void
 }
 
 export const Messages = (props: PropsType) => {
@@ -18,15 +16,18 @@ export const Messages = (props: PropsType) => {
         )
     })
 
+    const onSubmit = (formData: NewMessageFormPropsType) => {
+        props.sendMessage(formData.newMessageText)
+        formData.newMessageText = ''
+    }
+
     return(
         <div className={s.messages_wrapper}>
             <div className={s.messages_container}>
                 {messages}
             </div>
             <div className={s.new_message_container}>
-                <NewMessageForm newMessageText={props.newMessageText}
-                                onInputChange={props.onInputChange}
-                                sendMessage={props.sendMessage}/>
+                <NewMessageForm onSubmit={onSubmit} />
             </div>
         </div>
     )

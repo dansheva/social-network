@@ -13,7 +13,6 @@ export type MessagesDataType = Array<MessagesDataObjectType>;
 export type dialogsType = {
     dialogsData: DialogsTabsDataType
     messagesData: MessagesDataType
-    newMessageText: string
 }
 
 const initialState: dialogsType = {
@@ -51,38 +50,29 @@ const initialState: dialogsType = {
             message: "Hah",
         },
     ],
-    newMessageText: '',
 }
 
-export const dialogsReducer = (state = initialState, action: tsarType): dialogsType => {
+export const dialogsReducer = (state = initialState, action: ActionTypes): dialogsType => {
     switch (action.type) {
-        case UPDATE_NEW_MESSAGE_TEXT:
-            return {...state, newMessageText: action.value}
         case SEND_MESSAGE:
             const newMessage: MessagesDataObjectType = {
                 id: 3,
-                message: state.newMessageText
+                message: action.newMessage
             }
-            return {...state, messagesData: [...state.messagesData, newMessage], newMessageText: ''}
+            return {...state, messagesData: [...state.messagesData, newMessage]}
         default:
             return state
     }
 }
 
 const SEND_MESSAGE = 'SEND-MESSAGE';
-const UPDATE_NEW_MESSAGE_TEXT = 'UPDATE_NEW_MESSAGE_TEXT';
 
-type tsarType = updateNewMessageTextActionType | sendMessageActionCreatorType
+type ActionTypes = sendMessageActionCreatorType
 
-type updateNewMessageTextActionType = ReturnType<typeof updateNewMessageTextActionCreator>
-export const updateNewMessageTextActionCreator = (value: string) => ({
-        type: UPDATE_NEW_MESSAGE_TEXT,
-        value: value
-    } as const
-)
 
 type sendMessageActionCreatorType = ReturnType<typeof sendMessageActionCreator>
-export const sendMessageActionCreator = () => ({
-        type: SEND_MESSAGE
+export const sendMessageActionCreator = (newMessage: string) => ({
+        type: SEND_MESSAGE,
+        newMessage
     } as const
 )

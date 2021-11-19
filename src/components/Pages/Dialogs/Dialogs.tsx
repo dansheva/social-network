@@ -9,9 +9,7 @@ export function Dialogs(props: DialogsPropsType) {
         <div className={`${s.dialogs} box_shadow`}>
             <DialogsSidebar dialogsTabsData={props.dialogsData} />
             <Messages messages={props.messages}
-                      sendMessage={props.sendMessage}
-                      onInputChange={props.onInputChange}
-                      newMessageText={props.newMessageText}/>
+                      sendMessage={props.sendMessage}/>
         </div>
     )
 }

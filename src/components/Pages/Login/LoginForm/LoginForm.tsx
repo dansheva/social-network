@@ -43,7 +43,6 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                         name={'rememberMe'}
                         component={'input'}
                         type={'checkbox'}
-                        onChange={() => {}}
                         className={s.checkbox}
                     />
                     <span className={s.spanClassName}>Keep me logged in</span>

@@ -34,7 +34,6 @@ export type ProfileDataType = {
 }
 export type profileType = {
     posts: postsType
-    newPostText: string
     profile: ProfileDataType | null
     status: string | null
 }
@@ -54,7 +53,6 @@ const initialState: profileType = {
             message: "lorem ajfenr arejnjfnea kfjrfb",
         },
     ],
-    newPostText: '',
     profile: null,
     status: null
 }
@@ -64,13 +62,12 @@ export const profileReducer = (state = initialState, action: ActionTypes): profi
         case ADD_POST:
             const newPost: postObjectDataType = {
                 id: 5,
-                message: state.newPostText,
+                message: action.newPostText,
                 name: "Danik",
                 time: new Date().getTime().toString()
             }
-            return {...state, posts: [newPost, ...state.posts], newPostText: ''}
-        case  UPDATE_NEW_POST_TEXT:
-            return {...state, newPostText: action.value}
+            return {...state, posts: [newPost, ...state.posts]}
+
         case SET_USER_PROFILE:
             return {...state, profile: action.profileData}
         case SET_USER_STATUS:
@@ -82,28 +79,21 @@ export const profileReducer = (state = initialState, action: ActionTypes): profi
     }
 }
 
-export type ActionTypes = newPostElementActionType
-    | addPostActionType
+export type ActionTypes = addPostActionType
     | setUserProfileActionType
     | setUserStatusActionType
     | UpdateUserStatusActionType
 
 const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_USER_STATUS = 'SET-USER-STATUS'
 const UPDATE_USER_STATUS = 'UPDATE-USER-STATUS'
 
-type newPostElementActionType = ReturnType<typeof newPostElementActionCreator>
-export const newPostElementActionCreator = (value: string) => ({
-        type: UPDATE_NEW_POST_TEXT,
-        value: value,
-    } as const
-)
 
 type addPostActionType = ReturnType<typeof addPostActionCreator>
-export const addPostActionCreator = () => ({
+export const addPostActionCreator = (newPostText: string) => ({
         type: ADD_POST,
+        newPostText
     } as const
 )
 

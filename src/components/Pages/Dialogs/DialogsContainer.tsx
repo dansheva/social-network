@@ -2,7 +2,6 @@ import React, {ComponentType} from "react";
 import {
     DialogsTabsDataType, MessagesDataType,
     sendMessageActionCreator,
-    updateNewMessageTextActionCreator
 } from "../../../redux/dialogs-reducer";
 import {Dialogs} from "./Dialogs";
 import {connect} from "react-redux";
@@ -13,7 +12,6 @@ import {withAuthRedirect} from "../../../withAuthRedirect";
 type MapToPropsStateType = {
     dialogsData: DialogsTabsDataType
     messages: MessagesDataType
-    newMessageText: string
     isLoggedIn: boolean
 }
 
@@ -21,23 +19,18 @@ const mapToPropsState = (state: AppStateType): MapToPropsStateType => {
     return{
         dialogsData: state.dialogs.dialogsData,
         messages: state.dialogs.messagesData,
-        newMessageText: state.dialogs.newMessageText,
         isLoggedIn: state.auth.isAuth
     }
 }
 
 type MapToDispatchType = {
-    onInputChange: (text: string) => void
-    sendMessage: () => void
+    sendMessage: (newMessage: string) => void
 }
 
 const mapToDispatchType = (dispatch: Dispatch): MapToDispatchType => {
     return {
-        onInputChange: (text: string) => {
-            dispatch(updateNewMessageTextActionCreator(text));
-        },
-        sendMessage: () => {
-            dispatch(sendMessageActionCreator())
+        sendMessage: (newMessage) => {
+            dispatch(sendMessageActionCreator(newMessage))
         }
     }
 }

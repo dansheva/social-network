@@ -18,6 +18,8 @@
 }
 
 .send_button {
+    display: block;
     height: 40px;
     padding: 10px 20px;
+    background-color: transparent;
 }

@@ -1,37 +1,31 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from "./NewMessageForm.module.css";
 import {SendIcon} from "./Icons/SendIcon";
+import {Field, reduxForm, InjectedFormProps} from "redux-form";
 
-type PropsType = {
+export type NewMessageFormPropsType = {
     newMessageText: string
-    onInputChange: (text: string) => void
-    sendMessage: () => void
 }
 
-export const NewMessageForm = (props: PropsType) => {
-
-
-    const onInputChange = (e: ChangeEvent<HTMLInputElement>) => {
-        const text = e.target.value;
-        props.onInputChange(text)
-    }
-
-    const sendMessageHandler = () => {
-        props.sendMessage()
-    }
+const NewMessageForm: React.FC<InjectedFormProps<NewMessageFormPropsType>> = (props) => {
 
     return (
-        <div className={s.new_message_form}>
+        <form onSubmit={props.handleSubmit}
+              className={s.new_message_form}>
             <div className={s.input_container}>
-                <input onChange={onInputChange}
-                       className={s.input}
+                <Field className={s.input}
+                       component={'input'}
+                       name={'newMessageText'}
                        placeholder={'Write a message...'}
-                       value={props.newMessageText}
                        type="text"/>
             </div>
-            <div className={s.send_button} onClick={sendMessageHandler}>
+            <button type={'submit'} className={s.send_button}>
                 <SendIcon />
-            </div>
-        </div>
+            </button>
+        </form>
     )
 }
+
+export default reduxForm<NewMessageFormPropsType>({
+    form: 'contact'
+})(NewMessageForm)
