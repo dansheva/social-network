@@ -7,6 +7,7 @@ import {PostAvatar} from "../../common-components/Post/PostAvatar/PostAvatar";
 type PropsType = {
     isAuth: boolean
     userAvatar: string | null
+    logOut: () => void
 }
 
 function Header(props: PropsType) {
@@ -18,8 +19,13 @@ function Header(props: PropsType) {
             <div className={s.login_container}>
                 {
                     props.isAuth
-                        ? <PostAvatar href={'/profile'}
-                                      photoSrc={props.userAvatar ? props.userAvatar : undefined}/>
+                        ? <div className={s.post_avatar_container}>
+                            <PostAvatar href={'/profile'}
+                                        photoSrc={props.userAvatar ? props.userAvatar : undefined}/>
+                            <div className={s.login} onClick={props.logOut}>
+                                Log Out
+                            </div>
+                        </div>
                         : <NavLink to={'/login'}>
                             <div className={s.login}>
                                 Log In

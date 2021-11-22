@@ -40,6 +40,16 @@ type UpdateUserStatusType = {
     data: any
 }
 
+type LogoutDataType = {
+    userId: string
+}
+
+type CommonResponseType<T> = {
+    resultCode: number
+    messages: string[]
+    data: T
+}
+
 
 export const UsersApi = {
     getUsers: (currentPage: number, pageSize: number) => {
@@ -56,12 +66,20 @@ export const UsersApi = {
     },
 }
 
+
 export const HeaderApi = {
     isUserAuth: () => {
         return instance.get<IsAuthResponse>('auth/me')
             .then(res => res.data)
+    },
+    login: (email: string, password: string, rememberMe: boolean = false) => {
+        return instance.post<CommonResponseType<LogoutDataType>>(`auth/login`, {email, password, rememberMe})
+    },
+    logout: () => {
+        return instance.delete<CommonResponseType<any>>(`auth/login`)
     }
 }
+
 
 export const ProfileApi = {
     getProfileData: (userId: string) => {

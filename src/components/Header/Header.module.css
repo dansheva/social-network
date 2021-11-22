@@ -17,3 +17,9 @@
     border-radius: 10px;
     cursor: pointer;
 }
+
+.post_avatar_container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
