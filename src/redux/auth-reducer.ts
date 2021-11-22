@@ -2,6 +2,7 @@ import {HeaderApi, ProfileApi} from "../api/api";
 import {Dispatch} from "redux";
 import {ThunkDispatch} from "redux-thunk";
 import {AppStateType} from "./redux-store";
+import {stopSubmit} from "redux-form";
 
 export type UserDataType = {
     id: number | null
@@ -84,6 +85,9 @@ export const loginThunkCreator = (email: string, password: string, rememberMe: b
         .then(res => {
             if (res.data.resultCode === 0) {
                 dispatch(setAuthUserAndAvatarThunkCreator())
+            } else {
+                const err = res.data.messages.length > 0? res.data.messages[0] : 'Some error'
+                dispatch(stopSubmit('login', { _error: err}))
             }
         })
         .catch(err => {

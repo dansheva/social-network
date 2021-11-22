@@ -12,6 +12,8 @@ export type FormDataType = {
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
+    console.log(props.error)
+
     return(
         <form onSubmit={props.handleSubmit} className={s.form}>
             <div>
@@ -49,6 +51,11 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     <span className={s.spanClassName}>Keep me logged in</span>
                 </label>
             </div>
+            {props.error
+                ? <div className={s.form_error}>
+                    {props.error}
+                </div>
+                : null}
             <div className={s.button_container}>
                 <button type={'submit'} className={s.button}>Sign in</button>
             </div>
