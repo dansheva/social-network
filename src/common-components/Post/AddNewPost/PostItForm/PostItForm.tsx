@@ -1,11 +1,15 @@
 import React from "react";
 import s from "./PostItFrom.module.css"
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
+import BorderLessInput from "../../../BorderLessInput/BorderLessInput";
+import {maxLengthCreator, notEmpty} from "../../../../utils/validators/validators";
 
 
 export type PostItFormDataType = {
     newPostText: string
 }
+
+const maxLength100 = maxLengthCreator(10)
 
 const PostItForm: React.FC<InjectedFormProps<PostItFormDataType>> = (props) => {
 
@@ -16,7 +20,9 @@ const PostItForm: React.FC<InjectedFormProps<PostItFormDataType>> = (props) => {
                 <Field name={'newPostText'}
                        className={s.input}
                        placeholder={"What's new, Danik?"}
-                       component={'input'}
+                       component={BorderLessInput}
+                       autoComplete={'off'}
+                       validate={[notEmpty, maxLength100]}
                        type="text"/>
                 <button type={'submit'} className={s.post_it}>
                     <div className={s.icon_container}>

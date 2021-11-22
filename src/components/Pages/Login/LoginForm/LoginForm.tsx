@@ -1,6 +1,8 @@
 import React from "react";
 import {Field, InjectedFormProps, reduxForm} from 'redux-form'
 import s from "./LoginForm.module.css";
+import Input from "../../../../common-components/Input/Input";
+import {notEmpty} from "../../../../utils/validators/validators";
 
 export type FormDataType = {
     login: string
@@ -10,9 +12,6 @@ export type FormDataType = {
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
 
-    let error = false
-    const finalInputClassName = `${s.input} ${error ? s.errorInput : s.superInput}`
-
     return(
         <form onSubmit={props.handleSubmit} className={s.form}>
             <div>
@@ -20,10 +19,11 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     <div className={s.label}>E-mail</div>
                     <Field
                         name={'login'}
-                        component={'input'}
+                        component={Input}
                         type={'text'}
                         placeholder={"E-mail"}
-                        className={finalInputClassName}/>
+                        className={s.input}
+                        validate={[notEmpty]}/>
                 </label>
             </div>
             <div>
@@ -31,10 +31,11 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
                     <div className={s.label}>Password</div>
                     <Field
                         name={'password'}
-                        component={'input'}
+                        component={Input}
                         type={'password'}
                         placeholder={"Password"}
-                        className={finalInputClassName}/>
+                        className={s.input}
+                        validate={[notEmpty]}/>
                 </label>
             </div>
             <div>

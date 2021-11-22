@@ -2,6 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: stretch;
+    height: 50px;
 }
 
 .input_container {
@@ -11,10 +12,6 @@
 
 .input {
     width: 100%;
-}
-
-.input::placeholder{
-    color: #838793;
 }
 
 .send_button {
