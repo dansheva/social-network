@@ -12,6 +12,7 @@ import {RouteComponentProps, withRouter} from "react-router-dom";
 import {ThunkDispatch} from "redux-thunk";
 import {ActionTypes} from "../../../redux/profile-reducer";
 import {compose} from "redux";
+import {AuthStateType} from "../../../redux/auth-reducer";
 
 
 class ProfileContainer extends React.Component<ProfileContainerPropsType> {
@@ -19,12 +20,19 @@ class ProfileContainer extends React.Component<ProfileContainerPropsType> {
     componentDidMount() {
         let userId: string = this.props.match.params.userId
         if (!userId) {
-            userId = '20210'
+            debugger
+            userId = this.props.authData.data.id
+                ? this.props.authData.data.id.toString()
+                : ''
         }
-        this.props.setUserProfile(userId)
-
-        this.props.setUserStatus(userId)
+        if (userId !== '') {
+            this.props.setUserProfile(userId)
+            this.props.setUserStatus(userId)
+        } else {
+            this.props.history.replace('/login')
+        }
     }
+
 
     render() {
         return (
@@ -40,11 +48,13 @@ type ProfileContainerPropsType = MapStateToPropsType & MapDispatchToPropsType & 
 type MapStateToPropsType = {
     profileData: ProfileDataType | null
     status: string | null
+    authData: AuthStateType
 }
 const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profileData: state.profile.profile,
-        status: state.profile.status
+        status: state.profile.status,
+        authData: state.auth
     }
 }
 

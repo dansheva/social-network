@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "./Header";
-import {ActionsTypes, logoutThunkCreator, setAuthUserAndAvatarThunkCreator} from "../../redux/auth-reducer";
+import {ActionsTypes, logoutThunkCreator} from "../../redux/auth-reducer";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {ThunkDispatch} from "redux-thunk";
@@ -9,9 +9,6 @@ import {ThunkDispatch} from "redux-thunk";
 
 
 class HeaderContainer extends React.Component<PropsType>{
-    componentDidMount() {
-        this.props.setAuthUserAndAvatar()
-    }
 
     logout = () => {
         this.props.logOut()
@@ -38,12 +35,11 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
 }
 
 type MapDispatchToPropsType = {
-    setAuthUserAndAvatar: () => void
     logOut: () => void
 }
+
 const mapDispatchToProps = (dispatch: ThunkDispatch<AppStateType, void, ActionsTypes>): MapDispatchToPropsType => {
     return{
-        setAuthUserAndAvatar: () => dispatch(setAuthUserAndAvatarThunkCreator()),
         logOut: () => dispatch(logoutThunkCreator()),
     }
 }

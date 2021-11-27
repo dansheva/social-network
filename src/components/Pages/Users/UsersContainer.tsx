@@ -10,24 +10,31 @@ import {
 import {Users} from "./Users";
 import {withAuthRedirect} from "../../../withAuthRedirect";
 import {compose} from "redux";
+import {
+    getCurrentPage,
+    getIsFetching, getIsFetchingButtons,
+    getPageSize,
+    getUsersCount,
+    getUsersData
+} from "../../../redux/selectors/users-selector";
 
 type mapToStatePropsType = {
-    userData: UserType[]
+    usersData: UserType[]
     pageSize: number
     usersCount: number
     currentPage: number
     isFetching: boolean
-    IsFetchingButtons: string[]
+    isFetchingButtons: string[]
 }
 
 const mapToPropsState = (state: AppStateType): mapToStatePropsType => {
     return {
-        userData: state.users.users,
-        pageSize: state.users.pageSize,
-        usersCount: state.users.usersCount,
-        currentPage: state.users.currentPage,
-        isFetching: state.users.isFetchingUsers,
-        IsFetchingButtons: state.users.isFetchingButtons,
+        usersData: getUsersData(state),
+        pageSize: getPageSize(state),
+        usersCount: getUsersCount(state),
+        currentPage: getCurrentPage(state),
+        isFetching: getIsFetching(state),
+        isFetchingButtons: getIsFetchingButtons(state),
     }
 }
 
@@ -62,10 +69,10 @@ class UsersAPIComponent extends React.Component<UsersPropsType> {
             <Users usersCount={this.props.usersCount}
                    pageChanging={this.pageChanging}
                    currentPage={this.props.currentPage}
-                   userData={this.props.userData}
+                   userData={this.props.usersData}
                    pageSize={this.props.pageSize}
                    isFetching={this.props.isFetching}
-                   isFetchingButtons={this.props.IsFetchingButtons}
+                   isFetchingButtons={this.props.isFetchingButtons}
                    followUser={this.props.followUser}
                    unFollowUser={this.props.unFollowUser}/>
         );

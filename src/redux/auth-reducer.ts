@@ -10,13 +10,13 @@ export type UserDataType = {
     login: string | null
 }
 
-type StateType = {
+export type AuthStateType = {
     data: UserDataType
     isAuth: boolean
     userAvatar: string | null
 }
 
-const initialState: StateType = {
+const initialState: AuthStateType = {
     data: {
         id: null,
         email: null,
@@ -64,7 +64,7 @@ export const logOutAC = () => ({
 
 
 export const setAuthUserAndAvatarThunkCreator = () => (dispatch: Dispatch) => {
-    HeaderApi.isUserAuth()
+    return HeaderApi.isUserAuth()
         .then(data => {
             if (data.resultCode === 0) {
                 dispatch(setUserDataAC(data.data))
