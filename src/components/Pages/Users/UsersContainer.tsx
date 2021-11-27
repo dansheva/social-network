@@ -11,11 +11,10 @@ import {Users} from "./Users";
 import {withAuthRedirect} from "../../../withAuthRedirect";
 import {compose} from "redux";
 import {
-    getCurrentPage,
+    getCurrentPage, getFilteredUsersData,
     getIsFetching, getIsFetchingButtons,
     getPageSize,
     getUsersCount,
-    getUsersData
 } from "../../../redux/selectors/users-selector";
 
 type mapToStatePropsType = {
@@ -29,7 +28,7 @@ type mapToStatePropsType = {
 
 const mapToPropsState = (state: AppStateType): mapToStatePropsType => {
     return {
-        usersData: getUsersData(state),
+        usersData: getFilteredUsersData(state),
         pageSize: getPageSize(state),
         usersCount: getUsersCount(state),
         currentPage: getCurrentPage(state),

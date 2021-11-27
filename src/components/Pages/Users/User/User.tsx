@@ -24,7 +24,6 @@ export const User = (props: PropsType) => {
     }
 
     const unFollow = () => {
-        debugger
         props.unFollowUser(props.id)
     }
 
