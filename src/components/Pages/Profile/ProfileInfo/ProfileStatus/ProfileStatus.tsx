@@ -46,7 +46,6 @@ export class ProfileStatus extends React.Component<PropsType> {
     }
 
     render() {
-        console.log(this.props.status)
         return (
             <div className={s.status_container}>
                 <span className={s.status_title}>
